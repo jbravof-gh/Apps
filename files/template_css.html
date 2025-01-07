@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <!-- Local -->
-    <link rel="stylesheet" href="../styles/styles.css" />
+    <link rel="stylesheet" href="../styles/styles2.css" />
 
 
     <!-- BootStrap -->
@@ -22,28 +22,45 @@
 </head>
 
 <body>
-    <div class="border border-danger w-100 h-100  p-2 d-flex flex-column overflow-auto">
+    <div class="body-panel">
 
-        <div class="contenedor border border-black border-outset border-5 rounded p-2">
-            <div class="panel border w-auto">
-                1
-            </div>
+   <div id="contenedor_1" class="contenedor">
+    <div class="panel">
+        <header>Header</header>
+        <div>
+            <nav>Nav</nav>
+            <main>Main</main>
+            <aside>Aside</aside>
         </div>
-        <div class="contenedor border border-danger border-inset border-5 rounded-3 bg-black p-2">
-            <div class="panel border">
-                1
-            </div>
+        <footer>Footer</footer>
+    </div>
+   </div>
+   <div id="contenedor_2" class="contenedor">
+    <div class="panel">
+        <header>Header</header>
+        <div>
+            <nav>Nav</nav>
+            <main>Main</main>
+            <aside>Aside</aside>
         </div>
-        <div class="contenedor border border-black border-outset border-5 rounded p-2">
-            <div class="panel border w-auto">
-                1
-            </div>
-        </div>
-        <div class="contenedor border border-danger border-inset border-5 rounded-3 bg-black p-2">
-            <div class="panel border">
-                1
-            </div>
-        </div>
+        <footer>Footer</footer>
+    </div>
+   </div>
+
+   <div id="contenedor_3" class="contenedor">
+    <div id="" class="panel">
+        <header>Header</header>
+        <main> 
+            <nav></nav>
+           
+            <aside></aside>
+
+        </main>
+        <footer>Footer</footer>
+
+    </div>
+   </div>
+
     </div>
     <script>
         $(".contenedor").draggable();

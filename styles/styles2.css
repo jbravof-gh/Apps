@@ -1,0 +1,188 @@
+body{
+    border:black outset 12px;
+    width: 100vw;
+    height: 100vh;
+    padding: 10px;
+    /* background-color: black !important; */
+    overflow: hidden;
+
+}
+.body-panel{
+    border:red outset 12px;
+    padding: 10px;
+
+}
+.contenedor{
+    border: solid;
+    margin: 5px;
+    padding: 10px;
+}
+.contenedor .panel{
+    position: relative;
+    border: solid;
+    height: 100%;
+    overflow: auto;
+    /* margin: 15px; */
+    /* margin-bottom: -30px; */
+ 
+}
+header{
+    border: solid 0.5px;
+    padding: 5px;
+
+}
+footer{
+    /* position: relative; */
+    border: solid 0.5px;
+    padding: 5px;
+/* bottom: 0; */
+
+}
+main{
+    border: solid 0.5px !important;
+    padding: 5px;
+    /* height: -webkit-fill-available; */
+}
+nav{
+    border: solid 0.5px !important;
+    padding: 5px;
+    /* height: -webkit-fill-available; */
+}
+aside{
+    border: solid 0.5px !important;
+    padding: 5px;
+    /* height: -webkit-fill-available; */
+}
+
+
+
+
+
+
+#contenedor_1 .panel{
+    border: none;
+
+    display: flex;
+    flex-direction: column;
+}
+#contenedor_1 .panel *{
+    /* border: solid; */
+}
+#contenedor_1 .panel header{
+    border: solid !important;
+    min-width: 50px;
+    margin-bottom: 5px;
+    padding: 5px;
+
+    /* width: -webkit-fill-available; */
+}
+#contenedor_1 .panel div{
+    /* margin: 3px; */
+    /* padding: 5px; */
+border: none;
+    display: flex;
+    flex-direction: row;
+    height: -webkit-fill-available;
+    align-items: stretch;
+    justify-content: space-between;
+}
+
+#contenedor_1 .panel div main{
+    border: solid;
+    width: -webkit-fill-available;
+    margin-left: 5px; 
+    margin-right: 5px; 
+    padding: 5px;
+
+}
+
+#contenedor_1 .panel div nav{
+    border: solid;
+    min-width: 50px;
+    padding: 5px;
+
+    /* width: -webkit-fill-available; */
+}
+#contenedor_1 .panel div aside{
+    border: solid;
+    min-width: 50px;
+    padding: 5px;
+
+    /* width: -webkit-fill-available; */
+}
+#contenedor_1 .panel footer{
+    border: solid !important;
+    min-width: 50px;
+    margin-top: 5px;
+    padding: 5px;
+    /* width: -webkit-fill-available; */
+}
+
+
+
+#contenedor_2{
+    background-color: black;
+    color: white;
+    border-radius: 10px;
+}
+#contenedor_2  .panel *{
+    border-color: white !important;
+}
+#contenedor_2 .panel{
+    border: none;
+
+    display: flex;
+    flex-direction: column;
+}
+#contenedor_2 .panel *{
+    /* border: solid; */
+}
+#contenedor_2 .panel header{
+    border: solid white !important;
+    min-width: 50px;
+    margin-bottom: 5px;
+    padding: 5px;
+
+    /* width: -webkit-fill-available; */
+}
+#contenedor_2 .panel div{
+    /* margin: 3px; */
+    /* padding: 5px; */
+border: none;
+    display: flex;
+    flex-direction: row;
+    height: -webkit-fill-available;
+    align-items: stretch;
+    justify-content: space-between;
+}
+
+#contenedor_2 .panel div main{
+    border: solid;
+    width: -webkit-fill-available;
+    margin-left: 5px; 
+    margin-right: 5px; 
+    padding: 5px;
+
+}
+
+#contenedor_2 .panel div nav{
+    border: solid;
+    min-width: 50px;
+    padding: 5px;
+
+    /* width: -webkit-fill-available; */
+}
+#contenedor_2 .panel div aside{
+    border: solid;
+    min-width: 50px;
+    padding: 5px;
+
+    /* width: -webkit-fill-available; */
+}
+#contenedor_2 .panel footer{
+    border: solid white !important;
+    min-width: 50px;
+    margin-top: 5px;
+    padding: 5px;
+    /* width: -webkit-fill-available; */
+}
