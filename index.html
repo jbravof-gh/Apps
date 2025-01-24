@@ -1,29 +1,1658 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AppsControlPanel</title>
-       <!-- Local -->
-       <link rel="stylesheet" href="styles/styles.css"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AppsControlPanel</title>
+  <!-- Local -->
+  <link rel="stylesheet" href="./styles/styles.css" />
+  <script src="./files/save.js" defer></script>
+
+  <script src="./scripts/paneles_def.js" defer></script>
+
+  <script src="./scripts/scripts_panel_3.js" defer></script>
+  <script src="./scripts/old_scripts.js" defer></script>
+  <script src="./scripts/tablero.js" defer></script>
 
 
-       <!-- BootStrap -->
-           <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-           <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-           <!-- JQuery -->
-           <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-           <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-           <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.0/themes/base/jquery-ui.css">
-           <!-- Google Icons -->
-           <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-          
+  <!-- BootStrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- JQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.0/themes/base/jquery-ui.css">
+  <!-- Google Icons -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+  <script>
+    const colores = ["#ffc516", "#dc3545", "#198754", "#227bfd", "#6c757d", " bg-warning", " bg-success", " bg-primary", " bg-danger", " bg-secondary"]
+    function coge_input(objeto, clase) {
+      //  alert(objeto.offsetParent.outerHTML)
+      valorActivo = document.querySelector('input[name="status"]:checked').value;
+      //  alert(valorActivo)
+      //   alert(objeto.offsetParent.getElementsByClassName("div-panel")[0].innerHTML)
+      //   alert(colores[valorActivo])
+      objeto.offsetParent.getElementsByClassName(clase)[0].setAttribute("style", objeto.offsetParent.getElementsByClassName(clase)[0].getAttribute("style") + ("background-color:" + colores[valorActivo - 1] + " !important;"))
+      // objeto.offsetParent.getElementsByClassName("div-panel")[0].style.backgroundColor="#ffc516"
+
+    }
+  </script>
+  <template id="template_0" name="module_template">
+    <div name=1 class="id-div bg-white ">
+      <div class="master d-flex flex-column border p-0 m-0 rounded-2 overflow-auto border-black">
+        <div class="barra d-flex  w-100 p-2 gap-2 m-0 justify-content-between">
+          <div class="titulo h-100 pt-1 border ms-2 ps-2 pe-2 border-outset p-1">App</div>
+          <div>
+            <button class="add-app btn btn-sm border ps-2 pe-2 text-white bg-primary bg-gradient rounded m-0 p-0"
+              onclick="">Add</button>
+
+            <button class="max-app btn sm-btn btn-white border">+</button>
+            <button class="min-app btn sm-btn btn-white border">-</button>
+          </div>
+        </div>
+        <div style="position: relative;"
+          class="div-panel border flex-grow-1 h-50 overflow-auto  bg-gradient mt-0  m-1 rounded-2"></div>
+      </div>
+    </div>
+  </template>
+  <template id="template_1" name="main_template">
+    <h3
+      class="m-0 ps-2 d-flex justify-content-between border-bottom bg-warning bg-gradient m-0 p-1 overflow-x-auto overflow-y-hidden gap-2">
+      <div class="titulo h3 bg-danger  d-flex  ms-0 m-0 p-0 ps-2 pe-2 rounded-2  border-0 border-outset">Applicacion
+
+      </div>
+      <div class=" d-flex m-0 p-1 gap-2 ms-3 me-3 ps-2 pe-3 border border-3 rounded-5 bg-warning  overflow-x-auto">
+        <i onclick="location.reload();"
+          class=" border rounded-5  border-black border-2   ms-1 material-icons m-0 text-primary pt-0 me-3 "
+          style="">refresh</i>
+        <i onclick="Jugador.Crea_jugador('control-'+Jugadores.length)"
+          class="border border-2 rounded border-black material-icons m-0 text-danger pt-0 " style="">library_add</i>
+        <i onclick="Jugador.Crea_jugador(prompt('Nombre','control-'+Jugadores.length ))"
+          class="border  border-black border-2 rounded material-icons m-0 text-success pt-0 " style="">add_box</i>
+        <button class="btn btn-sm border  ps-2 pe-2 text-white bg-primary bg-gradient m-0 p-0"
+          onclick="add_menu('18')">AddMenu18</button>
+        <button class="btn btn-sm border ps-2 pe-2 text-white bg-primary bg-gradient rounded m-0 p-0"
+          onclick="add_menu('8')">AddMenu8</button>
+        <button class="add-app btn btn-sm border ps-2 pe-2 text-white bg-primary bg-gradient rounded m-0 p-0"
+          onclick="">Add</button>
+      </div>
+      <div class="ms-0 me-2 d-flex gap-2 pt-1">
+        <i onclick="openFullscreen()" class="material-icons ms-0 p-0 m-0   text-black pt-1">crop_square</i>
+        <i onclick="" class="max-app material-icons m-0 text-black pt-1 " style="">fullscreen</i>
+        <i onclick="" class="min-app material-icons m-0 text-black pt-1 " style="">close_fullscreen</i>
+        <i onclick="this.offsetParent.outerHTML=''" class="material-icons m-0 text-black p-0 pt-1 " style="">close</i>
+        <!-- JQuery 
+                  <div class="h5 h-75 mt-1 border border-inset"></div>
+                <div class="h5 h-75 mt-1 border border-inset"></div>
+                <i onclick="Applicacion.maximiza()" class="bt-max material-icons m-0 text-black pt-1 " style="">add</i>
+                <i onclick="Applicacion.minimiza()" class="bt-max material-icons m-0 text-black pt-1 " style="">remove</i>
+                -->
+      </div>
+    </h3>
+    <div style="position: relative !important;"
+      class="div-panel rounded-1 flex-grow-1 d-flex flex-wrap overflow-auto m-1 p-0  border-outset border-0"></div>
+    <div style="zoom:0.7" class="ps-2 bg-primary bg-gradient rounded-1 m-1 mt-0 d-flex ">
+      <div class="d-flex gap-2 justify-content-between w-100 me-2">
+        <div class="paneles-i d-flex  gap-2 m-0 p-1 h-auto text-white">
+          <!-- JQuery 
+                                                <i onclick="" class="ms-1 material-icons m-0   " style="">toggle_on</i>
+                    -->
+          Paneles
+          <i onclick="Jugador.Crea_jugador('Document');carga_document()" class="ms-1 material-icons m-0  btn p-0 "
+            style="">apps</i>
+          <i onclick="Jugador.Crea_jugador('Window');carga_window()" class="ms-1 material-icons m-0 btn p-0  "
+            style="">app_registration </i>
+          <i onclick="Jugador.Crea_jugador('Aplicacion');carga_aplicacion()" class="ms-1 material-icons m-0   "
+            style="">radio_button_unchecked </i>
+          <i onclick="" class="ms-1 material-icons m-0   " style="">radio_button_checked </i>
+          <i onclick="alert(Applicacion.start_style); document.getElementsByClassName('applicacion')[0].setAttribute('śtyle',Applicacion.start_style);"
+            class="material-icons ms-4 m-0 text-black pt-0">crop_square</i>
+          <i onclick="Jugador.Crea_jugador('Visor');carga_visor()" class=" material-icons m-0  pt-0 "
+            style="">refresh</i>
+        </div>
+        <div class="d-flex overflow-x-auto pt-0 text-white m-1">
+          Settings
+
+
+
+
+
+
+
+
+
+
+
+
+
+          <div style="zoom:.7;" class="d-flex  gap-2 m-0 p-0  rounded-3  overflow-x-auto ms-3">
+            <div class="border border-outset border-4 rounded-3 d-flex gap-0 m-0 p-0">
+              <label class="bg-white text-black bg-gradient p-0 ps-2 pe-2  pt-1">Top</label>
+              <label class="bg-black  text-white  bg-gradient ps-2 pe-2 border border-inset  pt-1">0</label>
+            </div>
+            <div class="border border-outset border-4 rounded-2 d-flex gap-0 m-0 p-0">
+              <label class="bg-white text-black bg-gradient p-0 ps-2 pe-2  pt-1">Left</label>
+              <label class="bg-black text-white bg-gradient ps-2 pe-2 border border-inset  pt-1">0</label>
+            </div>
+            <div class="border border-outset border-4 rounded-3 d-flex gap-0 m-0 p-0">
+              <label class="bg-white text-black bg-gradient p-0 ps-2 pe-2  pt-1">Height</label>
+              <label class="bg-black  text-white  bg-gradient ps-2 pe-2 border border-inset  pt-1">15</label>
+            </div>
+            <div class="border border-outset border-4 rounded-2 d-flex gap-0 m-0 p-0">
+              <label class="bg-white text-black bg-gradient p-0 ps-2 pe-2  pt-1">Width</label>
+              <label class="bg-black text-white bg-gradient ps-2 pe-2 border border-inset  pt-1">18</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </template>
+  <template id="template_2" name="main_template">
+    <div>
+      <h3
+        class="m-0 ps-2 d-flex justify-content-between border-bottom bg-primary bg-gradient m-0 p-1 overflow-x-auto overflow-y-hidden gap-2">
+        <div style="align-items: center;"
+          class="titulo h3 d-flex  ms-0 m-0 p-0 ps-2 pe-2 rounded-2  border border-black text-white border-outset ">
+          Parchis</div>
+        <div class=" d-flex m-0 p-1 gap-2 ms-3 me-3 ps-2 pe-3 border border-3 rounded-5 bg-warning  overflow-x-auto">
+          <i onclick="location.reload();"
+            class=" border rounded-5  border-black border-2   ms-1 material-icons m-0 text-primary pt-0 me-3 "
+            style="">refresh</i>
+          <!-- <i onclick="Jugador.Crea_jugador('control-'+Jugadores.length)"
+          class="border border-2 rounded border-black material-icons m-0 text-danger pt-0 " style="">library_add</i>
+        <i onclick="Jugador.Crea_jugador(prompt('Nombre','control-'+Jugadores.length ))"
+          class="border  border-black border-2 rounded material-icons m-0 text-success pt-0 " style="">add_box</i>
+        <button class="btn btn-sm border  ps-2 pe-2 text-white bg-primary bg-gradient m-0 p-0"
+          onclick="add_menu('18')">AddMenu18</button>
+        <button class="btn btn-sm border ps-2 pe-2 text-white bg-primary bg-gradient rounded m-0 p-0"
+          onclick="add_menu('8')">AddMenu8</button> -->
+          <button class="add-mod btn btn-sm border ps-2 pe-2 text-white bg-primary bg-gradient rounded m-0 p-0"
+            onclick="">Add</button>
+        </div>
+        <div class="ms-0 me-2 d-flex gap-2 pt-1">
+          <!-- <i onclick="openFullscreen()" class="material-icons ms-0 p-0 m-0   text-black pt-1">crop_square</i> -->
+          <i onclick="" class="max-app material-icons m-0 text-black pt-1 " style="">fullscreen</i>
+          <i onclick="" class="min-app material-icons m-0 text-black pt-1 " style="">close_fullscreen</i>
+          <i onclick="this.offsetParent.outerHTML=''" class="close-app material-icons m-0 text-black p-0 pt-1 "
+            style="">close</i>
+          <!-- JQuery 
+                  <div class="h5 h-75 mt-1 border border-inset"></div>
+                <div class="h5 h-75 mt-1 border border-inset"></div>
+                <i onclick="Applicacion.maximiza()" class="bt-max material-icons m-0 text-black pt-1 " style="">add</i>
+                <i onclick="Applicacion.minimiza()" class="bt-max material-icons m-0 text-black pt-1 " style="">remove</i>
+                -->
+        </div>
+      </h3>
+
+    </div>
+    <div style="position: relative !important;" class="div-panel  flex-grow-1   bg-gradient   m-1 rounded-2"></div>
+
+    <!-- <div style="position: relative !important;min-height:100px;" class="div-panel  flex-grow-1  m-0 p-0  border border-black border-2"></div> -->
+
+    <!-- <div style="position: relative !important;min-height:100px;" class="div-panel rounded-1  flex-grow-1 d-flex flex-wrap overflow-auto m-0 p-0  border border-black border-outset border-1"></div> -->
+
+    <div style="zoom:0.7" class="ps-2 bg-primary bg-gradient rounded-1 m-0 mt-0 d-flex ">
+      <div class="d-flex gap-2 justify-content-between w-100 me-2">
+        <div class="paneles-i d-flex  gap-2 m-0 p-1 h-auto text-white">
+          <!-- JQuery 
+                                                <i onclick="" class="ms-1 material-icons m-0   " style="">toggle_on</i>
+                    -->
+          Paneles
+          <i name="6" class="ms-1 material-icons m-0  btn p-0 " style="">apps</i>6
+          <i name="26" class="ms-1 material-icons m-0  btn p-0 " style="">apps</i>26
+
+          <i name="2" class="ms-1 material-icons m-0 btn p-0  " style="">app_registration </i>
+          <i name="3" class="ms-1 material-icons m-0   " style="">radio_button_unchecked </i>
+          <i name="4" class="ms-1 material-icons m-0   " style="">radio_button_checked </i>
+          <i name="19" class="material-icons ms-4 m-0 text-black pt-0">crop_square</i>
+          <i name="22" class=" material-icons m-0  pt-0 " style="">refresh</i>22
+          <i name="24" class=" material-icons m-0  pt-0 " style="">refresh</i>24
+        </div>
+        <div style="zoom: 0.8;" onclick="coge_input(this.parentElement.parentElement,'div-panel')"
+          class="div-foot bg-gradient  d-flex gap-2 p-2">
+          <div class="bg-warning text-warning m-0 p-1"> <input class="m-0 p-0" value="1" name="status" type="radio">
+          </div>
+          <div class="bg-danger text-danger m-0 p-1"> <input class="m-0 p-0" value="2" name="status" type="radio"></div>
+          <div class="bg-success text-warning m-0 p-1"> <input class="m-0 p-0" value="3" name="status" type="radio">
+          </div>
+          <div class="bg-primary text-warning m-0 p-1"> <input class="m-0 p-0" value="4" name="status" type="radio">
+          </div>
+          <div class="bg-secondary text-warning m-0 p-1"> <input class="m-0 p-0" value="5" name="status" type="radio">
+          </div>
+        </div>
+        <div class="d-flex overflow-x-auto pt-0 text-white m-1">
+          Settings
+
+
+
+
+
+
+
+
+
+
+
+
+
+          <div style="zoom:.7;" class="d-flex  gap-2 m-0 p-0  rounded-3  overflow-x-auto ms-3">
+            <div class="border border-outset border-4 rounded-3 d-flex gap-0 m-0 p-0">
+              <label class="bg-white text-black bg-gradient p-0 ps-2 pe-2  pt-1">Top</label>
+              <label class="bg-black  text-white  bg-gradient ps-2 pe-2 border border-inset  pt-1">0</label>
+            </div>
+            <div class="border border-outset border-4 rounded-2 d-flex gap-0 m-0 p-0">
+              <label class="bg-white text-black bg-gradient p-0 ps-2 pe-2  pt-1">Left</label>
+              <label class="bg-black text-white bg-gradient ps-2 pe-2 border border-inset  pt-1">0</label>
+            </div>
+            <div class="border border-outset border-4 rounded-3 d-flex gap-0 m-0 p-0">
+              <label class="bg-white text-black bg-gradient p-0 ps-2 pe-2  pt-1">Height</label>
+              <label class="bg-black  text-white  bg-gradient ps-2 pe-2 border border-inset  pt-1">15</label>
+            </div>
+            <div class="border border-outset border-4 rounded-2 d-flex gap-0 m-0 p-0">
+              <label class="bg-white text-black bg-gradient p-0 ps-2 pe-2  pt-1">Width</label>
+              <label class="bg-black text-white bg-gradient ps-2 pe-2 border border-inset  pt-1">18</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </template>
+  <template id="template_3" name="module_template">
+    <div class="master h-100 d-flex flex-column border p-0 m-0 rounded-0 overflow-auto border-black">
+      <div class="barra d-flex  w-100 p-2 gap-2 m-0 justify-content-between">
+        <div style="align-items: center;" class="titulo text-white h-100 pt-1 border ms-2 ps-2 pe-2 border-outset p-1">
+          Mod-</div>
+        <div>
+          <button class="add-mod btn btn-sm border ps-2 pe-2 text-white bg-primary bg-gradient rounded m-0 p-0"
+            onclick="">Add</button>
+
+          <button class="max-app btn sm-btn btn-white border">+</button>
+          <button class="min-app btn sm-btn btn-white border">-</button>
+          <button class="close-app btn sm-btn btn-white border">X</button>
+
+
+        </div>
+      </div>
+      <div id="" style="position: relative !important;min-height: 300px !important;min-width: 300px !important;"
+        class="div-panel  flex-grow-1   bg-gradient mt-0  m-1 rounded-2">
+      </div>
+      <div style="zoom: 0.6;" onclick="coge_input(this,'div-panel')" class="div-foot bg-gradient  d-flex gap-2 p-2">
+        <div class="bg-warning text-warning m-0 p-1"> <input class="m-0 p-0" value="1" name="status" type="radio"></div>
+        <div class="bg-danger text-danger m-0 p-1"> <input class="m-0 p-0" value="2" name="status" type="radio"></div>
+        <div class="bg-success text-warning m-0 p-1"> <input class="m-0 p-0" value="3" name="status" type="radio"></div>
+        <div class="bg-primary text-warning m-0 p-1"> <input class="m-0 p-0" value="4" name="status" type="radio"></div>
+        <div class="bg-secondary text-warning m-0 p-1"> <input class="m-0 p-0" value="5" name="status" type="radio">
+        </div>
+      </div>
+
+  </template>
+  <template id="template_4" name="8_new_panel">
+    <div style="display: none;">
+      <button class="add-mod">Boton</button>
+      <!-- <button class="max-app">Boton</button>
+  <button class="min-app">Boton</button> -->
+      <!-- <button class="titulo">Boton</button> -->
+    </div>
+    <div class="h-100 bg-white  border  d-flex flex-column gap-1 p-1 pt-1 ">
+      <div class="bar border-0 border-black  p-0 m-0 d-flex gap-2 h-auto justify-content-between">
+        <div
+          class="titulo h5 bg-secondary bg-gradient text-warning border border-black rounded-2 border-outset m-0 p-1 ps-2 pe-2">
+          Visor</div>
+        <div class="bar-section border-bottom border-black  p-0 d-flex m-0">
+          <i onclick="" class=" border-0 border-black rounded  material-icons m-0 p-1   " style="">home</i>
+          <i onclick="" class="btn ps-1 pe-1  border-0 border-black rounded material-icons m-0 p-1   "
+            style="">refresh</i>
+          <div class=" border p-1 m-0 ps-1 pe-1">Go </div>
+        </div>
+        <div class="bar-section border-bottom border-black  p-1 d-flex m-0 gap-2">
+          <i onclick="var panel_destino=document.getElementsByClassName('applicacion')[panel_seleccionado];old_style=panel_destino.getAttribute('style');panel_destino.setAttribute('style',max_style)"
+            class="max-app material-icons m-0 text-black p-0 m-0  border border-black" style="">fullscreen</i>
+          <i onclick="var panel_destino=document.getElementsByClassName('applicacion')[panel_seleccionado];panel_destino.setAttribute('style',old_style)"
+            class="min-app material-icons m-0 text-black p-0 m-0  border border-black" style="">close_fullscreen</i>
+          <i onclick="this.offsetParent.outerHTML=''"
+            class="close-app material-icons m-0 text-black p-0 m-0 border border-black ms-3" style="">close</i>
+        </div>
+      </div>
+      <div class="div-panel caja border-0 border-black  flex-grow-1 p-0">
+        <div class="master border-0 border-black h-100 d-flex gap-1 p-0">
+          <div class="bar border-0 border-black w-25 p-0 m-0 d-flex flex-column h-100 ">
+            <div class="bar border-0 border-black  p-1 m-0 me-2 ms-1 d-flex gap-2  overflow-x-auto">
+              <div
+                class="h6 bg-secondary bg-gradient text-warning border border-black rounded-2 border-outset m-0 p-1 ps-2 pe-2">
+                Tags</div>
+              <div onclick="carga_tag_names(this.parentElement.parentElement.getElementsByClassName('caja')[0])"
+                class=" border p-1 m-0 ps-1 pe-1">Carga </div>
+              <i onclick="carga_selected_tag_names((this.parentElement.parentElement.getElementsByClassName('caja')[0]),'template')"
+                class=" border-0 border-black rounded  material-icons m-0 p-1   " style="">home</i>
+              <i onclick="" class="btn ps-1 pe-1  border-0 border-black rounded material-icons m-0 p-1   "
+                style="">refresh</i>
+              <div class=" border p-1 m-0 ps-1 pe-1">Go </div>
+            </div>
+            <div class="caja border border-inset border-black  m-1 mt-1 h-100 overflow-auto  d-flex">
+              <select onchange="select_change(this)" size="2"
+                class="w-100 flex-shrink-1  flex-grow-1 overflow-auto bg-black bg-gradient"></select>
+            </div>
+          </div>
+          <div class="caja border-0 border-black w-75 flex-grow-1">
+            <div class="master border-0 border-black h-100 d-flex flex-row gap-1 p-0">
+              <div class="master border-0 border-black  d-flex flex-column flex-grow-1">
+                <div class="bar border-0 border-black  p-1 m-0 d-flex gap-2">
+                  <div
+                    class="h6 bg-secondary bg-gradient text-warning border border-black rounded-2 border-outset m-0 p-1 ps-2 pe-2">
+                    Lector</div>
+                  <i onclick="location.reload();" class="border-0 border-black rounded  material-icons m-0 p-0 pt-1  "
+                    style="">home</i>
+                  <i onclick="location.reload();"
+                    class="btn ps-1 pe-1 border-0 border-black rounded material-icons pt-1 m-0 p-0   "
+                    style="">refresh</i>
+                  <div class="btn btn-sm border border-black pt-1 p-0 m-0 ps-1 pe-1">Go </div>
+                </div>
+                <div class="caja border border-black  flex-grow-1 m-1 mt-0">
+                  <textarea class="visor-texto w-100 h-100"></textarea>
+                </div>
+              </div>
+              <div class="master border-0 border-black  d-flex flex-column flex-grow-1">
+                <div class="bar border-0 border-black  p-1 m-0 d-flex gap-2">
+                  <div
+                    class="h6 bg-secondary bg-gradient text-warning border border-black rounded-2 border-outset m-0 p-1 ps-2 pe-2">
+                    Navegador</div>
+                  <i onclick="location.reload();" class="border-0 border-black rounded  material-icons m-0 p-0 pt-1  "
+                    style="">home</i>
+                  <i onclick="location.reload();"
+                    class="btn ps-1 pe-1 border-0 border-black rounded material-icons pt-1 m-0 p-0   "
+                    style="">refresh</i>
+                  <div class="btn btn-sm border border-black pt-1 p-0 m-0 ps-1 pe-1">Go </div>
+                </div>
+                <div class="caja  border border-inset border-black flex-grow-1  m-1 mt-0 ">
+                  <div
+                    class="visor-texto border border-inset border-black w-100 h-100  m-1 mt-0 overflow-auto d-flex flex-column">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="zoom: 0.6;" onclick="coge_input(this,'div-panel')" class="div-foot bg-gradient  d-flex gap-2 p-2">
+        <!-- <div onclick="coge_input(this)"> -->
+        <div class="bg-warning text-warning m-0 p-1"> <input class="m-0 p-0" value="1" name="status" type="radio"></div>
+        <div class="bg-danger text-danger m-0 p-1"> <input class="m-0 p-0" value="2" name="status" type="radio"></div>
+        <div class="bg-success text-warning m-0 p-1"> <input class="m-0 p-0" value="3" name="status" type="radio"></div>
+        <div class="bg-primary text-warning m-0 p-1"> <input class="m-0 p-0" value="4" name="status" type="radio"></div>
+        <div class="bg-secondary text-warning m-0 p-1"> <input class="m-0 p-0" value="5" name="status" type="radio">
+        </div>
+
+
+
+
+        <!-- <input type="radio" name="status" value="interesado" id="interesado"> <label for="interesado">Estoy
+            interesado</label>
+          <br>
+          <input type="radio" name="status" value="indeciso" id="indeciso"> <label for="indeciso">Estoy
+            indeciso</label>
+          <br>
+          <input type="radio" name="status" value="no_interesado" id="no_interesado"> <label for="no_interesado">No me
+            interesa</label> -->
+
+        <!-- </div> -->
+
+      </div>
+    </div>
+    <script></script>
+  </template>
+  <template id="template_5" name="3">
+    <div class="h-100 bg-black rounded-2 border border-white m-0 mb-0 p-0  d-flex flex-column ">
+      <div class="panel-div  border m-0 d-flex pt-1  flex-grow-1 flex-column gap-0 overflow-y-auto  ">
+        <div class="bar d-flex gap-1 ps-2 pe-2 justify-content-between">
+          <div class="titulo h3 rounded-3 ps-3 pe-3 p-1 bg-danger">App</div>
+          <i onclick="Jugador.Update_jugador(document.getElementsByClassName('jugador-update').length-1)"
+            class="add-app jugador-update material-icons m-0 text-success pt-1 " style="">settings</i>
+          <div class="mt-1">
+            <i name="" onclick="Jugador.Show_jugador(this.getAttribute('name'))"
+              class="max-app material-icons m-0 text-white " style="">add</i>
+            <i name="" onclick="Jugador.Hide_jugador(this.getAttribute('name'))"
+              class="min-app material-icons m-0 text-white " style="">remove</i>
+          </div>
+        </div>
+        <div class="div-panel caja h-100 flex-grow-1 m-1 ms-2 mt-0 me-2 p-0 overflow-auto bg-white bg-gradient"></div>
+        <div class="ps-2 bg-warning bg-gradient rounded-1 m-1 mt-0 ms-2 me-2 d-flex">
+          <div>
+            <input style="color:red !important;background-color:red !important; " class="" name="radio1" type="radio">
+            <input name="radio1" type="radio">
+          </div>
+        </div>
+      </div>
+    </div>
+  </template>
+  <template id="template_6" name="5">
+    <div style="display: none;">
+      <button class="add-mod">Boton</button>
+      <!-- <button class="max-app">Boton</button>
+      <button class="min-app">Boton</button> -->
+      <!-- <button class="titulo">Boton</button> -->
+    </div>
+    <datalist id="template_links">
+      <option value="/index.html"></option>
+      <option value="/files/templates/index.html"></option>
+      <option value="/files/templates/index2.html"></option>
+      <option value="/files/templates/index3.html"></option>
+      <option value="/files/templates/index4.html"></option>
+    </datalist>
+    <div class="h-100 master applicacion bg-gradient  d-flex flex-column border-0 m-1 ">
+      <div class="border-0 d-flex m-0 p-0 justify-content-between">
+        <div class="titulo m-0 ">Templates</div>
+        <div class="ms-0 me-2 d-flex gap-2 m-0 p-0">
+          <!-- <i onclick="openFullscreen()" class="material-icons ms-0 p-0 m-0   text-black pt-1">crop_square</i> -->
+          <i onclick="" class="max-app material-icons m-0 text-black pt-1 " style="">fullscreen</i>
+          <i onclick="" class="min-app material-icons m-0 text-black pt-1 " style="">close_fullscreen</i>
+          <i onclick="this.offsetParent.outerHTML=''" class="close-app material-icons m-0 text-black p-0 pt-1 "
+            style="">close</i>
+          <!-- JQuery 
+                <div class="h5 h-75 mt-1 border border-inset"></div>
+              <div class="h5 h-75 mt-1 border border-inset"></div>
+              <i onclick="Applicacion.maximiza()" class="bt-max material-icons m-0 text-black pt-1 " style="">add</i>
+              <i onclick="Applicacion.minimiza()" class="bt-max material-icons m-0 text-black pt-1 " style="">remove</i>
+              -->
+        </div>
+      </div>
+      <div class="div-panel h-100 border-0">
+        <div class="w-100 d-flex gap-1 p-1 m-1 bg-danger overflow-auto">
+          <div class="pt-1 border">Templates</div>
+          <input ondblclick="document.getElementsByTagName('iframe')[0].src=this.value"
+            class="flex-grow-1 input-url  border" list="template_links">
+          <button onclick="document.getElementsByClassName('input-url')[0].ondblclick()"
+            class="btn btn-sm border">Get</button>
+        </div>
+        <div class="w-100 flex-grow-1 border p-2 d-flex gap-1 bg-warning overflow-auto">
+          <iframe onload="carga_aplicacion()" style="display:none;" class="w-100 border" src=""></iframe>
+          <select size=5
+            onchange="document.getElementsByClassName('visor')[0].innerHTML=Templates_def[this.selectedIndex][1][1]"
+            class="select-templates rounded p-2 overflow-auto w-25 flex-grow-1 h-100">
+          </select>
+          <div class="visor p-2 bg-white  overflow-auto w-75"></div>
+        </div>
+      </div>
+    </div>
+  </template>
+  <template id="template_7" name="6_new_panel">
+
+    <div
+      style="top:10% !important;left:15% !important;min-height:50px !important;min-width:150px !important;height:200px !important;width:250px !important;"
+      class=" bg-white d-flex p-2">
+      <div style="display: none;">
+        <button class="add-app">Boton</button>
+        <button class="max-app">Boton</button>
+        <button class="min-app">Boton</button>
+        <button class="titulo">Boton</button>
+      </div>
+      <div class="master border border-black w-100 d-flex gap-1 p-1">
+        <div class="bar border border-black w-25 p-1"></div>
+        <div class="caja border-0 border-black w-75 p-0">
+          <div class="master border-0 border-black h-100 d-flex flex-column gap-1 p-0">
+            <div class="bar border border-black h-25"></div>
+            <div class="caja border border-black h-75"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </template>
+  <template id="template_8" name="7_new_panel">
+
+    <div
+      style="top:10% !important;left:15% !important;min-height:50px !important;min-width:150px !important;height:200px !important;width:450px !important;"
+      class="applicacion2 bg-white d-flex p-1">
+      <div style="display: none;">
+        <button class="add-mod">Boton</button>
+        <button class="max-app">Boton</button>
+        <button class="min-app">Boton</button>
+        <!-- <button class="titulo">Boton</button> -->
+      </div>
+      <div class="master border-0 border-black w-100 d-flex flex-column gap-1 p-1 h-100">
+        <div class="bar border-0 border-black  p-0 m-0 d-flex gap-2 h-auto">
+          <div class="h5 border border-black border-outset m-0 p-1">Visor</div>
+          <i onclick="" class=" border-0 border-black rounded  material-icons m-0 p-1   " style="">home</i>
+          <i onclick="" class="btn ps-1 pe-1  border-0 border-black rounded material-icons m-0 p-1   "
+            style="">refresh</i>
+          <div class=" border p-1 m-0 ps-1 pe-1">Go </div>
+        </div>
+        <div class="caja border-0 border-black  flex-grow-1 p-0">
+          <div class="master border-0 border-black h-100 d-flex gap-1 p-0">
+            <div class="bar border border-black w-auto p-0 m-0 d-flex flex-column ">
+              <div class="bar border-0 border-black  p-0 m-0 d-flex gap-2 h-auto">
+                <div class="h5 border border-outset m-0 p-1">Tags</div>
+                <div class=" border p-1 m-0 ps-1 pe-1">Carga </div>
+                <i onclick="" class=" border-0 border-black rounded  material-icons m-0 p-1   " style="">home</i>
+                <i onclick="" class="btn ps-1 pe-1  border-0 border-black rounded material-icons m-0 p-1   "
+                  style="">refresh</i>
+                <div class=" border p-1 m-0 ps-1 pe-1">Go </div>
+              </div>
+              <div class="caja border border-inset border-black  flex-grow-1 m-1 mt-0"></div>
+            </div>
+            <div class="caja border-0 border-black w-75 flex-grow-1">
+              <div class="master border border-black h-100 d-flex flex-column gap-1 p-0">
+                <div class="master border-0 border-black  d-flex flex-column flex-grow-1">
+                  <div class="bar border-0 border-black  p-1 m-0 d-flex gap-2">
+                    <i onclick="location.reload();"
+                      class="fs-5 border-0 border-black rounded  material-icons m-0 p-0   " style="">home</i>
+                    <i onclick="location.reload();"
+                      class="btn ps-1 pe-1 fs-5 border-0 border-black rounded material-icons m-0 p-0   "
+                      style="">refresh</i>
+                    <div class="btn btn-sm border border-black p-0 m-0 ps-1 pe-1">Go </div>
+                  </div>
+                  <div class="caja border border-black  flex-grow-1 m-1 mt-0"></div>
+                </div>
+                <div class="master border-0 border-black  d-flex flex-column flex-grow-1">
+                  <div class="bar border-0 border-black  p-1 m-0 d-flex gap-2">
+                    <i onclick="location.reload();"
+                      class="fs-5 border-0 border-black rounded  material-icons m-0 p-0   " style="">home</i>
+                    <i onclick="location.reload();"
+                      class="btn ps-1 pe-1 fs-5 border-0 border-black rounded material-icons m-0 p-0   "
+                      style="">refresh</i>
+                    <div class="btn btn-sm border border-black p-0 m-0 ps-1 pe-1">Go </div>
+                  </div>
+                  <div class="caja border border-inset border-black  flex-grow-1 m-1 mt-0"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </template>
+  <template id="id_9" name="panel">
+    <div style="display: none;">
+      <button class="add-app">Boton</button>
+      <button class="max-app">Boton</button>
+      <button class="min-app">Boton</button>
+      <button class="titulo">Boton</button>
+    </div>
+    <div name=1 class="id-div bg-white ">
+      <div class="master d-flex flex-column border p-0 m-0 rounded-2 overflow-auto border-black">
+        <div class="barra d-flex  w-100 p-2 gap-2 m-0 justify-content-between">
+          <div class="titulo h-100 pt-1 border ms-2 ps-2 pe-2 border-outset p-1">App</div>
+          <div>
+            <button class="bt-maxim btn sm-btn btn-white border">+</button>
+            <button class="bt-minim btn sm-btn btn-white border">-</button>
+          </div>
+        </div>
+        <div class="panel border flex-grow-1 h-50 overflow-auto  bg-gradient mt-0  m-1 rounded-2"></div>
+      </div>
+    </div>
+  </template>
+  <template id="id_10" name="jugadores_new">
+    <div style="display: none;">
+      <button class="add-mod">Boton</button>
+      <!-- <button class="max-app">Boton</button>
+      <button class="min-app">Boton</button> -->
+      <!-- <button class="titulo">Boton</button> -->
+      <button class="close-app">Boton</button>
+
+    </div>
+    <div class="d-flex bg-black w-100 h-100 border rounded-3   border-outset border-0">
+      <div class="border-0 p-1 h-100 w-100 d-flex flex-column gap-2 pb-1">
+        <div style="zoom: .7;" class="d-flex gap-2 p-0 pb-1 justify-content-start border-bottom  w-100 overflow-auto">
+          <h4 class="titulo text-white ps-2 ms-2 me-2 mt-2">Jugadores</h4>
+          <!-- <button onclick="rellena_select('jugadores')"   class="btn btn-sm bg-success bg-gradient border text-white p-0 pe-2 ps-2 m-2">
+                  <i  onclick="add_player();" class="material-icons mt-1"style="font-size:40px">cloud_download</i>
+
+              </button> -->
+          <!-- <button class="btn btn-sm btn-danger bg-gradient p-0 pe-2 ps-2 m-2 " onclick="add_player();"> 
+                  <i class="material-icons" style="font-size:30px;color:rgb(3, 2, 2)">add</i>
+              </button> -->
+          <i id="i_rellena_jugadores"
+            onclick="rellena_select('jugadores');this.className='material-icons mt-1 me-3 text-white';"
+            class="material-icons mt-1 me-3 text-primary " style="font-size:40px">cloud_download</i>
+          <i onclick="add_player();" class="max-app material-icons mt-1 text-success "
+            style="font-size:40px">add_circle_outline</i>
+          <!-- <button class="btn btn-sm btn-warning text-black bg-gradient p-0 pe-2 ps-2 m-2" onclick="myFunction()">
+                  <i class="material-icons" style="font-size:30px;color:rgb(9, 7, 7)">delete</i>
+
+              </button> -->
+          <i onclick="myFunction()" class="min-app material-icons mt-1 text-danger "
+            style="font-size:40px">remove_circle_outline</i>
+        </div>
+        <div style="" id="jugador_detail"
+          class="div-panel d-flex gap-2 overflow-x-auto h-50 overflow-hidden flex-grow-1">
+          <div class="w-25 border bg-warning h-100 text-white d-flex flex-column p-1 ms-1">
+            <div class="text-center text-primary">Player</div>
+            <select size="4" onchange="select_change(this.value)"
+              class="btn btn-sm rounded border border-inset bg-danger bg-gradient w-auto text-white overflow-hidden p-2 ms-1 me-1 h-100 d-flex"></select>
+          </div>
+          <div class="w-75 d-flex flex-column h-100 mt-3 gap-2 pe-1">
+            <div class="d-flex gap-2 text-center w-100">
+              <div class="border-0 text-white pt-1 ps-1 pe-1 w-25 flex-grow-1">Id:</div>
+              <input id="input_id" type="text" class="btn bg-white text-danger rounded w-50 p-0 text-center "
+                disabled />
+              <button onclick="" class="btn btn-sm btn-primary bg-gradient disabled">↻</button>
+            </div>
+            <div class="d-flex gap-2 text-center w-100">
+              <div class="border-0 text-white pt-1 ps-1 pe-1 w-25 flex-grow-1">Nombre:</div>
+              <input id="input_nombre" type="text" class="rounded w-50 text-center" />
+              <button onclick="update_nombre(input_id.value)" class="btn btn-sm btn-primary bg-gradient">↻</button>
+            </div>
+            <div class="d-flex gap-2">
+              <div class="border-0 text-center text-white pt-1 ps-1 pe-1 w-25 flex-grow-1">Color:</div>
+              <input id="input_color" type="text" class="rounded w-50 text-center" />
+              <button onclick="update_color(input_id.value)" class="btn btn-sm btn-primary bg-gradient">↻</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </template>
+  <template id="id_11" name="fichas">
+    <div style="zoom: .7;" ctgr="Master_panel_toolbar"
+      class="border border-bottom rounded bg-black d-flex justify-content-between ps-2 p-1 m-0 gap-2 border-white w-100  overflow-x-auto  ">
+      <h4 onclick="show_hide2('fichas_detail')" class="text-white ps-2 ms-2 me-2 mt-2">Fichas</h4>
+      <i id="i_rellena_fichas" onclick="rellena_fichas();this.className='material-icons mt-1 me-3 text-white'"
+        class="material-icons mt-1 me-3 text-primary " style="font-size:40px">cloud_download</i>
+      <div ctgr="Master_panel_toolbar" class="border-0 d-flex justify-content-evenly gap-2 m-0 p-1">
+        <i onclick="show_hide3('config_central_i_l_2_success',2)"
+          class="rellena-f-success material-icons p-1 bg-success bg-gradient rounded-5"
+          style="font-size:30px">remove</i>
+        <i onclick="show_hide3('config_central_i_l_2_warning',3)"
+          class="rellena-f-warning material-icons p-1 bg-warning bg-gradient rounded-5"
+          style="font-size:30px">remove</i>
+        <i onclick="show_hide3('config_central_i_l_2_danger',4)"
+          class="rellena-f-danger material-icons p-1 bg-danger bg-gradient rounded-5" style="font-size:30px">remove</i>
+        <i onclick="show_hide3('config_central_i_l_2_primary',5)"
+          class="rellena-f-primary material-icons p-1 bg-primary bg-gradient rounded-5"
+          style="font-size:30px">remove</i>
+      </div>
+      <div class="d-flex gap-2 justify-content-evenly me-3">
+        <button
+          class="maximiza btn btn-sm border border-0 border-outset rounded-5  border-white text-white mt-0 mb-0 p-0` pt-0 pb-1 w-100 fs-5">+</button>
+        <button
+          class="minimiza btn btn-sm border border-0 border-outset rounded-5  border-white text-white mt-0 mb-0  p-0  pt-0 pb-1 w-100 fs-5">-</button>
+      </div>
+    </div>
+    <div style="display: none !important;" id="fichas_detail"
+      class="d-flex flex-column  overflow-auto    bg-black bg-gradient gap-2 p-1 mt-1 h-75 flex-grow-1"></div>
+  </template>
+  <template id="id_12" name="0-Applicacion">
+    <div style="top:10% !important;left:5% !important;width:70% !important;"
+      class="applicacion template bg-black d-flex flex-column">
+      <h3
+        class="m-0 ps-2 d-flex justify-content-between border-bottom bg-warning bg-gradient m-0 p-1 overflow-x-auto overflow-y-hidden gap-2">
+        <div class="h3 bg-danger bg-gradient d-flex  ms-0 m-0 p-0 ps-2 pe-2 rounded-2 border border-3 border-outset">
+          Applicacion
+
+        </div>
+        <div class=" d-flex m-0 p-1 gap-2 ms-3 me-3 ps-2 pe-3 border border-3 rounded-5 bg-warning  overflow-x-auto">
+          <i onclick="location.reload();"
+            class=" border rounded-5  border-black border-2   ms-1 material-icons m-0 text-primary pt-0 me-3 "
+            style="">refresh</i>
+          <i onclick="Jugador.Crea_jugador('control-'+Jugadores.length)"
+            class="border border-2 rounded border-black bt-max material-icons m-0 text-danger pt-0 "
+            style="">library_add</i>
+          <i onclick="Jugador.Crea_jugador(prompt('Nombre','control-'+Jugadores.length ))"
+            class="border  border-black border-2 rounded bt-max material-icons m-0 text-success pt-0 "
+            style="">add_box</i>
+          <button class="btn btn-sm border  ps-2 pe-2 text-white bg-primary bg-gradient m-0 p-0"
+            onclick="add_menu('18')">AddMenu18</button>
+          <button class="btn btn-sm border ps-2 pe-2 text-white bg-primary bg-gradient rounded m-0 p-0"
+            onclick="add_menu('8')">AddMenu8</button>
+          <button class="btn btn-sm border ps-2 pe-2 text-white bg-primary bg-gradient rounded m-0 p-0"
+            onclick="add_menu(prompt('template','18'))">Add</button>
+        </div>
+        <div class="ms-0 me-2 d-flex gap-2 pt-1">
+          <i onclick="openFullscreen()" class="material-icons ms-0 p-0 m-0   text-black pt-1">crop_square</i>
+          <i onclick="Applicacion.maximiza()" class="bt-max material-icons m-0 text-black pt-1 " style="">fullscreen</i>
+          <i onclick="Applicacion.minimiza()" class="bt-max material-icons m-0 text-black pt-1 "
+            style="">close_fullscreen</i>
+          <i onclick="this.offsetParent.outerHTML=''" class="material-icons m-0 text-black p-0 pt-1 " style="">close</i>
+          <!-- JQuery 
+                <div class="h5 h-75 mt-1 border border-inset"></div>
+              <div class="h5 h-75 mt-1 border border-inset"></div>
+              <i onclick="Applicacion.maximiza()" class="bt-max material-icons m-0 text-black pt-1 " style="">add</i>
+              <i onclick="Applicacion.minimiza()" class="bt-max material-icons m-0 text-black pt-1 " style="">remove</i>
+              -->
+        </div>
+      </h3>
+      <div class="div-panel rounded-1 flex-grow-1 d-flex flex-wrap overflow-auto m-1 p-0 border border-outset border-0">
+      </div>
+      <div style="zoom:0.7" class="ps-2 bg-primary bg-gradient rounded-1 m-1 mt-0 d-flex ">
+        <div class="d-flex gap-2 justify-content-between w-100 me-2">
+          <div class="d-flex  gap-2 m-0 p-1 h-auto text-white">
+            <!-- JQuery 
+                                              <i onclick="" class="ms-1 material-icons m-0   " style="">toggle_on</i>
+                  -->
+            Paneles
+            <i onclick="Jugador.Crea_jugador('Document');carga_document()" class="ms-1 material-icons m-0  btn p-0 "
+              style="">apps</i>
+            <i onclick="Jugador.Crea_jugador('Window');carga_window()" class="ms-1 material-icons m-0 btn p-0  "
+              style="">app_registration </i>
+            <i onclick="Jugador.Crea_jugador('Aplicacion');carga_aplicacion()" class="ms-1 material-icons m-0   "
+              style="">radio_button_unchecked </i>
+            <i onclick="" class="ms-1 material-icons m-0   " style="">radio_button_checked </i>
+            <i onclick="alert(Applicacion.start_style); document.getElementsByClassName('applicacion')[0].setAttribute('śtyle',Applicacion.start_style);"
+              class="material-icons ms-4 m-0 text-black pt-0">crop_square</i>
+            <i onclick="Jugador.Crea_jugador('Visor');carga_visor()" class=" material-icons m-0  pt-0 "
+              style="">refresh</i>
+          </div>
+          <div class="d-flex overflow-x-auto pt-0 text-white m-1">
+            Settings
+            <div style="zoom:.7;" class="d-flex  gap-2 m-0 p-0  rounded-3  overflow-x-auto ms-3">
+              <div class="border border-outset border-4 rounded-3 d-flex gap-0 m-0 p-0">
+                <label class="bg-white text-black bg-gradient p-0 ps-2 pe-2  pt-1">Top</label>
+                <label class="bg-black  text-white  bg-gradient ps-2 pe-2 border border-inset  pt-1">0</label>
+              </div>
+              <div class="border border-outset border-4 rounded-2 d-flex gap-0 m-0 p-0">
+                <label class="bg-white text-black bg-gradient p-0 ps-2 pe-2  pt-1">Left</label>
+                <label class="bg-black text-white bg-gradient ps-2 pe-2 border border-inset  pt-1">0</label>
+              </div>
+              <div class="border border-outset border-4 rounded-3 d-flex gap-0 m-0 p-0">
+                <label class="bg-white text-black bg-gradient p-0 ps-2 pe-2  pt-1">Height</label>
+                <label class="bg-black  text-white  bg-gradient ps-2 pe-2 border border-inset  pt-1">15</label>
+              </div>
+              <div class="border border-outset border-4 rounded-2 d-flex gap-0 m-0 p-0">
+                <label class="bg-white text-black bg-gradient p-0 ps-2 pe-2  pt-1">Width</label>
+                <label class="bg-black text-white bg-gradient ps-2 pe-2 border border-inset  pt-1">18</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </template>
+  <template name="13">
+    <div style="display: block !important;" id=""
+      class="panel-box border border-warning border-5 rounded-3 p-0 d-flex flex-column  flex-shrink-1  bg-warning bg-gradient gap-1">
+      <div style="zoom: .8;" ctgr="Master_panel_toolbar"
+        class="border-bottom border-black rounded text-black d-flex justify-content-between ps-2 p-1 m-0 gap-2">
+        <div ctgr="Master_panel_toolbar" class="border-0 d-flex justify-content-evenly gap-2 m-0 p-0">
+          <button name="0"
+            class="btn-panel-box-div btn btn-sm   btn-success bg-gradient  border rounded-5  border-black mt-1 mb-1 p-2 pt-1 pb-1">-</button>
+          <button name="1"
+            class="btn-panel-box-div btn btn-sm  btn-secondary bg-gradient border rounded-5  border-black mt-1 mb-1 p-2 pt-1 pb-1">+</button>
+          <!-- <button name="3"  class="btn-panel-box-div btn btn-sm  btn-primary text-primary border rounded-5 border-black mt-1 mb-1 p-2 pt-1 pb-1">3</button> -->
+        </div>
+        <div class="d-flex  gap-2 justify-content-evenly me-3">
+          <button
+            class=" maximiza-2 btn btn-sm border border-0 border-outset rounded-5  border-white mt-0 mb-0 p-0` pt-0 pb-1 w-100 fs-5">+</button>
+          <button
+            class="minimiza-2 btn btn-sm border border-0 border-outset rounded-5  border-white  mt-0 mb-0  p-0  pt-0 pb-1 w-100 fs-5">-</button>
+        </div>
+      </div>
+      <div
+        class=" panel-box-div d-flex flex-column  border bg-success bg-gradient rounded-3 m-0 border-2 p-0 h-50 flex-grow-1 overflow-hidden"
+        id="config_detail_i_l_1">
+        <!-- <div class="d-flex flex-column h-100 ">
+                          <div class="d-flex gap-3 justify-content-end w-auto me-3">
+                              <button onclick="id_textarea.value='';contador_texto=0;"
+                                  class=" btn btn-sm border border-0 border-outset rounded-5  border-white text-white me-3 pt-2">
+                                  <i class="material-icons" style="font-size:20px;color:red">delete</i>
+
+                              </button>
+                              <button
+                                  class="maximiza btn btn-sm border border-0 border-outset rounded-5  border-white text-white mt-0 mb-0 p-0 pt-0 pb-1  fs-5">+</button>
+                              <button
+                                  class="minimiza btn btn-sm border border-0 border-outset rounded-5  border-white text-white mt-0 mb-0  p-0  pt-0 pb-1  fs-5">-</button>
+
+                          </div>
+                          <textarea
+                              class="border flex-grow-1  bg-black bg-gradient border-4 border-warning m-1 mt-1 rounded-3"
+                              id="id_textarea"></textarea>
+
+                      </div> -->
+      </div>
+      <div style="display: none !important;"
+        class=" panel-box-div border bg-secondary bg-gradient rounded-3 m-0 border-2 p-1 h-50 flex-grow-1 overflow-auto"
+        id="config_detail_i_l_2">
+
+      </div>
+    </div>
+  </template>
+  <template name="16_visor">
+    <div class="border border-outset container-fluid d-flex h-100 w-100 p-3">
+      <div name="visor" class="flex-grow-1 border d-flex gap-2 p-1   bg-white">
+        <div name="left" class="border w-25 d-flex flex-column p-1 gap-1">
+          <div name="bar" class="border d-flex gap-2 p-1 h-auto">
+            <i onclick="templates_fun(this);" class="material-icons mt-1 text-success "
+              style="font-size:40px">add_circle_outline</i>
+            <i onclick="templates_fun(document);" class="material-icons mt-1 text-primary "
+              style="font-size:40px">add_circle_outline</i>
+          </div>
+          <div name="panel" class="panel border flex-grow-1"></div>
+        </div>
+        <div name="right" class="right border w-75"></div>
+      </div>
+    </div>
+  </template>
+  <template name="17_template_panel_1">
+    <div class="master border border-black w-100 d-flex flex-column gap-1 p-1">
+      <div class="bar border border-black  p-1"></div>
+      <div class="caja border-0 border-black  flex-grow-1 p-0">
+        <div class="master border-0 border-black h-100 d-flex flex-row gap-1 p-0">
+          <div class="left border border-black w-25 p-1">
+            <div class="master border border-black h-100 d-flex flex-column gap-1 p-1">
+              <div class="bar border border-black  p-1"></div>
+              <div class="caja border border-black  flex-grow-1 p-0"></div>
+            </div>
+          </div>
+          <div class="right border border-black w-75 p-1">
+            <div class="master border border-black h-100 d-flex flex-column gap-1 p-1">
+              <div class="bar border border-black  p-1"></div>
+              <div class="caja border border-black  flex-grow-1 p-0"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script></script>
+    </div>
+    </div>
+  </template>
+  <template name="18_template_panel_2">
+    <div class="master border-0 border-black w-100 d-flex flex-column gap-1 p-0">
+      <div class="bar border border-black  p-1"></div>
+      <div class="caja border-0 border-black  flex-grow-1 p-0">
+        <div class="master border-0 border-black h-100 d-flex flex-row gap-1 p-0">
+          <div class="left border-0 border-black w-25 p-0">
+            <div class="master border-0 border-black h-100 d-flex flex-column gap-1 p-0">
+              <div class="bar border border-black  p-1"></div>
+              <div class="caja border border-black  flex-grow-1 p-0"></div>
+            </div>
+          </div>
+          <div class="right border-0 border-black w-75 p-0">
+            <div class="master border border-black h-100 d-flex flex-column gap-1 p-1">
+              <div class="bar border border-black  p-1"></div>
+              <div class="caja border border-black  flex-grow-1 p-0"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </template>
+  <template name="19_template_panel_3">
+    <div name="applicacion2" class="master border-0 border-black w-100 h-100 d-flex flex-column gap-1 p-0">
+      <div class="bar-general border-0 border-black  p-0 d-flex m-0 justify-content-between">
+        <div class="bar-section border-0 border-black  p-0 d-flex m-0 gap-3">
+          <h5 name="titulo"
+            onclick="var texto_titulo=this.getAttribute('name');var texto_index= Array.from(document.getElementsByName('titulo')).indexOf(this) ;  var panel_destino=document.getElementsByClassName('caja-general')[texto_index]; var panel_destino2=document.getElementsByClassName('applicacion')[texto_index]; if( panel_destino.getAttribute('style')=='display:none;' ){panel_destino.setAttribute('style','');}else{panel_destino.setAttribute('style','display:none;') ;panel_destino2.style.height='80px !important;'}"
+            class="titulo border border-outset border-black rounded m-0 p-1 ps-2 pe-2">App</h5>
+          <div class="bar-botones border-bottom border-black  p-1 d-flex">
+            <i onclick="" class="material-icons m-0 text-black p-0 m-0 " style="">home</i>
+            <i onclick="" class="material-icons m-0 text-black p-0 m-0 " style="">folder</i>
+          </div>
+        </div>
+        <div class="bar-section border-bottom border-black  p-1 d-flex m-0 ms-3">
+          <!-- <i onclick="var panel_destino=document.getElementsByClassName('applicacion')[panel_seleccionado];old_style=panel_destino.getAttribute('style');panel_destino.setAttribute('style',max_style)"
+            class="material-icons m-0 text-black p-0 m-0  border border-black" style="">fullscreen</i> -->
+          <i class="max-app material-icons m-0 text-black p-0 m-0  border border-black">fullscreen</i>
+
+          <i onclick="var panel_destino=document.getElementsByClassName('applicacion')[panel_seleccionado];panel_destino.setAttribute('style',old_style)"
+            class="min-app material-icons m-0 text-black p-0 m-0  border border-black" style="">close_fullscreen</i>
+          <i onclick="this.offsetParent.outerHTML=''"
+            class=" material-icons m-0 text-black p-0 m-0  border border-black ms-3" style="">close</i>
+        </div>
+      </div>
+      <div class="caja-general border-0 border-black   flex-grow-1 p-0">
+        <div class="master border-0 border-black h-100 d-flex flex-row gap-1 p-0">
+          <div class="left border-0 border-black w-25  p-0">
+            <div class="master border-0 border-black h-100 d-flex flex-column gap-1 p-0">
+              <div class="bar border border-black  p-1 d-flex">
+                <i onclick="" class="material-icons m-0 text-black p-0 m-0 " style="">home</i>
+                <i onclick="" class="material-icons m-0 text-black p-0 m-0 " style="">folder</i>
+              </div>
+              <div class="caja border border-black  flex-grow-1 p-0">left</div>
+            </div>
+          </div>
+          <div class="right border-0 border-black w-75 p-0">
+            <div class="master border-0 border-black h-100 d-flex flex-column gap-1 p-0">
+              <div class="bar border border-black  p-1 d-flex">
+                <i onclick="" class="material-icons m-0 text-black p-0 m-0 " style="">home</i>
+                <i onclick="" class="material-icons m-0 text-black p-0 m-0 " style="">folder</i>
+              </div>
+              <div class="caja border border-black  flex-grow-1 p-0">right</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="zoom: 0.6;" onclick="coge_input(this.parentElement,'caja-general')"
+        class="div-foot bg-gradient  d-flex gap-2 p-2">
+        <div class="bg-warning text-warning m-0 p-1"> <input class="m-0 p-0" value="1" name="status" type="radio"></div>
+        <div class="bg-danger text-danger m-0 p-1"> <input class="m-0 p-0" value="2" name="status" type="radio"></div>
+        <div class="bg-success text-warning m-0 p-1"> <input class="m-0 p-0" value="3" name="status" type="radio"></div>
+        <div class="bg-primary text-warning m-0 p-1"> <input class="m-0 p-0" value="4" name="status" type="radio"></div>
+        <div class="bg-secondary text-warning m-0 p-1"> <input class="m-0 p-0" value="5" name="status" type="radio">
+        </div>
+      </div>
+      <script></script>
+    </div>
+  </template>
+  <template name="20_template_black">
+    <div style="display: none;">
+      <!-- <button class="add-mod">Boton</button> -->
+      <!-- <button class="max-app">Boton</button>
+        <button class="min-app">Boton</button>
+        <button class="titulo">Boton</button> -->
+    </div>
+    <div class="panel bg-black rounded-2 border-0 m-0 d-flex w-100 h-100  ">
+      <div class="panel-div  border m-0 d-flex pt-2   flex-grow-1 flex-column gap-0 overflow-y-auto  ">
+        <div class="bar d-flex gap-1 ps-2 pe-2  pb-2 justify-content-between">
+          <div class="titulo h3 rounded-3 ps-3 pe-3 p-1 bg-danger m-0">App</div>
+          <i class="add-mod material-icons m-0 text-success pt-1 ">settings</i>
+          <div class="mt-1">
+            <i name="" class="max-app material-icons m-0 text-white " style="">add</i>
+            <i name="" class="min-app material-icons m-0 text-white " style="">remove</i>
+            <!-- <i onclick="var panel_destino=document.getElementsByClassName('applicacion')[panel_seleccionado];panel_destino.outerHTML=''" class="material-icons m-0 text-white p-0 m-0 " style="">close</i> -->
+          </div>
+        </div>
+        <div style="position: relative !important;min-height: 50vh !important;min-width: 50vh !important;"
+          class="div-panel visible-no flex-grow-1 bg-white p-3  bg-gradient mt-0  m-1 rounded-2"></div>
+        <div style="zoom: 0.6;" onclick="coge_input(this,'div-panel')" class="div-foot bg-gradient  d-flex gap-2 p-2">
+          <!-- <div onclick="coge_input(this)"> -->
+          <div class="bg-warning text-warning m-0 p-1"> <input class="m-0 p-0" value="1" name="status" type="radio">
+          </div>
+          <div class="bg-danger text-danger m-0 p-1"> <input class="m-0 p-0" value="2" name="status" type="radio"></div>
+          <div class="bg-success text-warning m-0 p-1"> <input class="m-0 p-0" value="3" name="status" type="radio">
+          </div>
+          <div class="bg-primary text-warning m-0 p-1"> <input class="m-0 p-0" value="4" name="status" type="radio">
+          </div>
+          <div class="bg-secondary text-warning m-0 p-1"> <input class="m-0 p-0" value="5" name="status" type="radio">
+          </div>
+
+
+
+
+          <!-- <input type="radio" name="status" value="interesado" id="interesado"> <label for="interesado">Estoy
+              interesado</label>
+            <br>
+            <input type="radio" name="status" value="indeciso" id="indeciso"> <label for="indeciso">Estoy
+              indeciso</label>
+            <br>
+            <input type="radio" name="status" value="no_interesado" id="no_interesado"> <label for="no_interesado">No me
+              interesa</label> -->
+
+          <!-- </div> -->
+
+        </div>
+      </div>
+    </div>
+  </template>
+  <template name="21_template_black">
+    <div style="display: none;">
+      <button class="add-app">Boton</button>
+      <button class="max-app">Boton</button>
+      <button class="min-app">Boton</button>
+      <button class="titulo">Boton</button>
+    </div>
+    <div onmouseleave="document.getElementsByClassName('applicacion')[panel_seleccionado].style.zIndex='0'"
+      onmouseenter="panel_seleccionado= Array.from(document.getElementsByClassName('applicacion')).indexOf(this);document.getElementsByClassName('applicacion')[panel_seleccionado].style.zIndex='10'"
+      name="applicacion2"
+      class="applicacion  master border  border-outset border-1 bg-white   d-flex flex-column m-0 pb-2 pe-2 pt-1 gap-1 p-2 ">
+      <div class="bar-general border-0 border-black  p-0 d-flex m-0 justify-content-between">
+        <div class="bar-section border-0 border-black  p-0 d-flex m-0 gap-3">
+          <h5 name="titulo"
+            onclick="var texto_titulo=this.getAttribute('name');var texto_index= Array.from(document.getElementsByName('titulo')).indexOf(this) ;  var panel_destino=document.getElementsByClassName('caja-general')[texto_index]; var panel_destino2=document.getElementsByClassName('applicacion')[texto_index]; if( panel_destino.getAttribute('style')=='display:none;' ){panel_destino.setAttribute('style','');}else{panel_destino.setAttribute('style','display:none;') ;panel_destino2.style.height='80px !important;'}"
+            class="titulo border border-outset border-black rounded m-0 p-1 ps-2 pe-2">App</h5>
+          <div class="bar-botones border-bottom border-black  p-1 d-flex">
+            <i onclick="" class="material-icons m-0 text-black p-0 m-0 " style="">home</i>
+            <i onclick="" class="material-icons m-0 text-black p-0 m-0 " style="">folder</i>
+          </div>
+        </div>
+        <div class="bar-section border-bottom border-black  p-1 d-flex m-0 ms-3">
+          <i onclick="openFullscreen()"
+            class="material-icons ms-4 p-0 m-0  border border-black text-black pt-0">crop_square</i>
+          <i onclick="var panel_destino=document.getElementsByClassName('applicacion')[panel_seleccionado];old_style=panel_destino.getAttribute('style');panel_destino.setAttribute('style',max_style)"
+            class="material-icons m-0 text-black p-0 m-0  border border-black" style="">fullscreen</i>
+          <i onclick="var panel_destino=document.getElementsByClassName('applicacion')[panel_seleccionado];panel_destino.setAttribute('style',old_style)"
+            class="material-icons m-0 text-black p-0 m-0  border border-black" style="">close_fullscreen</i>
+          <i onclick="this.offsetParent.outerHTML=''"
+            class="material-icons m-0 text-black p-0 m-0  border border-black ms-3" style="">close</i>
+        </div>
+      </div>
+      <div class="caja-general border-0 border-black   flex-grow-1 p-0">
+        <div class="master border-0 border-black h-100 d-flex flex-row gap-1 p-0">
+          <div class="left border-0 border-black w-25  p-0">
+            <div class="master border-0 border-black h-100 d-flex flex-column gap-1 p-0">
+              <div class="bar border border-black m-0  p-1 d-flex">
+                <i onclick="" class="material-icons m-0 text-black p-0 m-0 " style="">home</i>
+                <i onclick="" class="material-icons m-0 text-black p-0 m-0 " style="">folder</i>
+              </div>
+              <div class="caja border border-black  flex-grow-1 p-0">left</div>
+            </div>
+          </div>
+          <div class="right border-0 border-black w-75 p-0">
+            <div class="master border-0 border-black h-100 d-flex flex-column gap-1 p-0">
+              <div class="bar border border-black m-0 p-1 d-flex">
+                <i onclick="" class="material-icons m-0 text-black p-0 m-0 " style="">home</i>
+                <i onclick="" class="material-icons m-0 text-black p-0 m-0 " style="">folder</i>
+              </div>
+              <div class="caja border-0 border-black  flex-grow-1 p-0">
+                <div class="master border-0 border-black h-100 d-flex flex-row gap-1 p-0">
+                  <div class="left border-0 border-black w-25  p-0">
+                    <div class="master border-0 border-black h-100 d-flex flex-column gap-1 p-0">
+                      <div style="display:none  !important;" class="bar border border-black  p-1 d-flex">
+                        <i onclick="" class="material-icons m-0 text-black p-0 m-0 " style="">home</i>
+                        <i onclick="" class="material-icons m-0 text-black p-0 m-0 " style="">folder</i>
+                      </div>
+                      <div class="caja border border-black  flex-grow-1 p-0">left</div>
+                    </div>
+                  </div>
+                  <div class="right border-0 border-black w-75 p-0">
+                    <div class="master border-0 border-black h-100 d-flex flex-column gap-1 p-0">
+                      <div style="display:none  !important;" class="bar border border-black  p-1 d-flex">
+                        <i onclick="" class="material-icons m-0 text-black p-0 m-0 " style="">home</i>
+                        <i onclick="" class="material-icons m-0 text-black p-0 m-0 " style="">folder</i>
+                      </div>
+                      <div class="caja border border-black  flex-grow-1 p-0"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script></script>
+    </div>
+  </template>
+  <template name="22_template_black">
+    <div style="display: none;">
+      <!-- <button class="add-mod">Boton</button> -->
+      <!-- <button class="max-app">Boton</button>
+        <button class="min-app">Boton</button>
+        <button class="titulo">Boton</button> -->
+    </div>
+    <div class="panel bg-black rounded-2 border-0 m-0 d-flex w-100 h-100  ">
+      <div class="panel-div  border m-0 d-flex pt-2   flex-grow-1 flex-column gap-0 overflow-y-auto  ">
+        <div class="bar d-flex gap-1 ps-2 pe-2  pb-2 justify-content-between">
+          <div class="titulo h3 rounded-3 ps-3 pe-3 p-0 bg-danger m-0">App</div>
+          <i class="add-mod material-icons m-0 text-success pt-1 ">settings</i>
+          <div class="mt-1">
+            <i name="" class="max-app material-icons m-0 text-white " style="">add</i>
+            <i name="" class="min-app material-icons m-0 text-white " style="">remove</i>
+            <i onclick="this.offsetParent.outerHTML=''" class="material-icons m-0 text-white p-0 m-0 "
+              style="">close</i>
+          </div>
+        </div>
+        <div style="position: relative !important;min-height: 50vh !important;min-width: 50vh !important;"
+          class="div-panel visible-no flex-grow-1 bg-white p-3  bg-gradient mt-0  m-1 rounded-2"></div>
+        <div style="zoom: 0.6;" onclick="coge_input(this,'div-panel')" class="div-foot bg-gradient  d-flex gap-2 p-2">
+          <!-- <div onclick="coge_input(this)"> -->
+          <div class="bg-warning text-warning m-0 p-1"> <input class="m-0 p-0" value="1" name="status" type="radio">
+          </div>
+          <div class="bg-danger text-danger m-0 p-1"> <input class="m-0 p-0" value="2" name="status" type="radio"></div>
+          <div class="bg-success text-warning m-0 p-1"> <input class="m-0 p-0" value="3" name="status" type="radio">
+          </div>
+          <div class="bg-primary text-warning m-0 p-1"> <input class="m-0 p-0" value="4" name="status" type="radio">
+          </div>
+          <div class="bg-secondary text-warning m-0 p-1"> <input class="m-0 p-0" value="5" name="status" type="radio">
+          </div>
+
+
+
+
+          <!-- <input type="radio" name="status" value="interesado" id="interesado"> <label for="interesado">Estoy
+              interesado</label>
+            <br>
+            <input type="radio" name="status" value="indeciso" id="indeciso"> <label for="indeciso">Estoy
+              indeciso</label>
+            <br>
+            <input type="radio" name="status" value="no_interesado" id="no_interesado"> <label for="no_interesado">No me
+              interesa</label> -->
+
+          <!-- </div> -->
+
+        </div>
+      </div>
+    </div>
+  </template>
+  <template name="23_template_black">
+
+    <div class="panel bg-black rounded-2 border-0 m-0 d-flex w-100 h-100  ">
+      <div class="panel-div  border m-0 d-flex pt-2   flex-grow-1 flex-column gap-0 overflow-y-auto  ">
+        <div class="bar d-flex gap-1 ps-2 pe-2  pb-2 justify-content-between">
+          <div class="titulo h3 rounded-3 ps-3 pe-3 p-0 bg-danger m-0">App</div>
+          <i class="add-mod material-icons m-0 text-success pt-1 ">settings</i>
+          <div class="mt-1">
+            <i name="" class="max-app material-icons m-0 text-white " style="">add</i>
+            <i name="" class="min-app material-icons m-0 text-white " style="">remove</i>
+            <i onclick="this.offsetParent.outerHTML=''" class="material-icons m-0 text-white p-0 m-0 "
+              style="">close</i>
+          </div>
+        </div>
+        <div style="position: relative !important;min-height: 50vh !important;min-width: 50vh !important;"
+          class="div-panel visible-no flex-grow-1 bg-white p-3  bg-gradient mt-0  m-1 rounded-2">
+          <div class="h-100 bg-white  border  d-flex flex-column gap-1 p-1 pt-1 ">
+            <!-- <div class="bar border-0 border-black  p-0 m-0 d-flex gap-2 h-auto justify-content-between">
+              <div
+                class="titulo h5 bg-secondary bg-gradient text-warning border border-black rounded-2 border-outset m-0 p-1 ps-2 pe-2">
+                Visor</div>
+              <div class="bar-section border-bottom border-black  p-0 d-flex m-0">
+                <i onclick="" class=" border-0 border-black rounded  material-icons m-0 p-1   " style="">home</i>
+                <i onclick="" class="btn ps-1 pe-1  border-0 border-black rounded material-icons m-0 p-1   "
+                  style="">refresh</i>
+                <div class=" border p-1 m-0 ps-1 pe-1">Go </div>
+              </div>
+              <div class="bar-section border-bottom border-black  p-1 d-flex m-0 gap-2">
+                <i onclick="var panel_destino=document.getElementsByClassName('applicacion')[panel_seleccionado];old_style=panel_destino.getAttribute('style');panel_destino.setAttribute('style',max_style)"
+                  class="max-app material-icons m-0 text-black p-0 m-0  border border-black" style="">fullscreen</i>
+                <i onclick="var panel_destino=document.getElementsByClassName('applicacion')[panel_seleccionado];panel_destino.setAttribute('style',old_style)"
+                  class="min-app material-icons m-0 text-black p-0 m-0  border border-black" style="">close_fullscreen</i>
+                <i onclick="this.offsetParent.outerHTML=''"
+                  class="material-icons m-0 text-black p-0 m-0 border border-black ms-3" style="">close</i>
+              </div>
+            </div> -->
+            <div class="div-panel caja border-0 border-black  flex-grow-1 p-0">
+              <div class="master border-0 border-black h-100 d-flex gap-1 p-0">
+                <div class="bar border-0 border-black w-25 p-0 m-0 d-flex flex-column h-100 ">
+                  <div class="bar border-0 border-black  p-1 m-0 me-2 ms-1 d-flex gap-2  overflow-x-auto">
+                    <div
+                      class="h6 bg-secondary bg-gradient text-warning border border-black rounded-2 border-outset m-0 p-1 ps-2 pe-2">
+                      Tags</div>
+                    <div onclick="carga_tag_names(this.parentElement.parentElement.getElementsByClassName('caja')[0])"
+                      class=" border p-1 m-0 ps-1 pe-1">Carga </div>
+                    <i onclick="carga_selected_tag_names((this.parentElement.parentElement.getElementsByClassName('caja')[0]),'template')"
+                      class=" border-0 border-black rounded  material-icons m-0 p-1   " style="">home</i>
+                    <i onclick="" class="btn ps-1 pe-1  border-0 border-black rounded material-icons m-0 p-1   "
+                      style="">refresh</i>
+                    <div class=" border p-1 m-0 ps-1 pe-1">Go </div>
+                  </div>
+                  <div class="caja border border-inset border-black  m-1 mt-1 h-100 overflow-auto  d-flex">
+                    <select onchange="select_change(this)" size="2"
+                      class="w-100 flex-shrink-1  flex-grow-1 overflow-auto bg-black bg-gradient"></select>
+                  </div>
+                </div>
+                <div class="caja border-0 border-black w-75 flex-grow-1">
+                  <div class="master border-0 border-black h-100 d-flex flex-row gap-1 p-0">
+                    <div class="master border-0 border-black  d-flex flex-column flex-grow-1">
+                      <div class="bar border-0 border-black  p-1 m-0 d-flex gap-2">
+                        <div
+                          class="h6 bg-secondary bg-gradient text-warning border border-black rounded-2 border-outset m-0 p-1 ps-2 pe-2">
+                          Lector</div>
+                        <i onclick="location.reload();"
+                          class="border-0 border-black rounded  material-icons m-0 p-0 pt-1  " style="">home</i>
+                        <i onclick="location.reload();"
+                          class="btn ps-1 pe-1 border-0 border-black rounded material-icons pt-1 m-0 p-0   "
+                          style="">refresh</i>
+                        <div class="btn btn-sm border border-black pt-1 p-0 m-0 ps-1 pe-1">Go </div>
+                      </div>
+                      <div class="caja border border-black  flex-grow-1 m-1 mt-0">
+                        <textarea class="visor-texto w-100 h-100"></textarea>
+                      </div>
+                    </div>
+                    <div class="master border-0 border-black  d-flex flex-column flex-grow-1">
+                      <div class="bar border-0 border-black  p-1 m-0 d-flex gap-2">
+                        <div
+                          class="h6 bg-secondary bg-gradient text-warning border border-black rounded-2 border-outset m-0 p-1 ps-2 pe-2">
+                          Navegador</div>
+                        <i onclick="location.reload();"
+                          class="border-0 border-black rounded  material-icons m-0 p-0 pt-1  " style="">home</i>
+                        <i onclick="location.reload();"
+                          class="btn ps-1 pe-1 border-0 border-black rounded material-icons pt-1 m-0 p-0   "
+                          style="">refresh</i>
+                        <div class="btn btn-sm border border-black pt-1 p-0 m-0 ps-1 pe-1">Go </div>
+                      </div>
+                      <div class="caja  border border-inset border-black flex-grow-1  m-1 mt-0 ">
+                        <div
+                          class="visor-texto border border-inset border-black w-100 h-100  m-1 mt-0 overflow-auto d-flex flex-column">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div style="zoom: 0.6;" onclick="coge_input(this,'div-panel')"
+              class="div-foot bg-gradient  d-flex gap-2 p-2">
+              <!-- <div onclick="coge_input(this)"> -->
+              <div class="bg-warning text-warning m-0 p-1"> <input class="m-0 p-0" value="1" name="status" type="radio">
+              </div>
+              <div class="bg-danger text-danger m-0 p-1"> <input class="m-0 p-0" value="2" name="status" type="radio">
+              </div>
+              <div class="bg-success text-warning m-0 p-1"> <input class="m-0 p-0" value="3" name="status" type="radio">
+              </div>
+              <div class="bg-primary text-warning m-0 p-1"> <input class="m-0 p-0" value="4" name="status" type="radio">
+              </div>
+              <div class="bg-secondary text-warning m-0 p-1"> <input class="m-0 p-0" value="5" name="status"
+                  type="radio"></div>
+
+
+
+
+              <!-- <input type="radio" name="status" value="interesado" id="interesado"> <label for="interesado">Estoy
+                  interesado</label>
+                <br>
+                <input type="radio" name="status" value="indeciso" id="indeciso"> <label for="indeciso">Estoy
+                  indeciso</label>
+                <br>
+                <input type="radio" name="status" value="no_interesado" id="no_interesado"> <label for="no_interesado">No me
+                  interesa</label> -->
+
+              <!-- </div> -->
+
+            </div>
+          </div>
+
+        </div>
+        <div style="zoom: 0.6;" onclick="coge_input(this,'div-panel')" class="div-foot bg-gradient  d-flex gap-2 p-2">
+          <!-- <div onclick="coge_input(this)"> -->
+          <div class="bg-warning text-warning m-0 p-1"> <input class="m-0 p-0" value="1" name="status" type="radio">
+          </div>
+          <div class="bg-danger text-danger m-0 p-1"> <input class="m-0 p-0" value="2" name="status" type="radio"></div>
+          <div class="bg-success text-warning m-0 p-1"> <input class="m-0 p-0" value="3" name="status" type="radio">
+          </div>
+          <div class="bg-primary text-warning m-0 p-1"> <input class="m-0 p-0" value="4" name="status" type="radio">
+          </div>
+          <div class="bg-secondary text-warning m-0 p-1"> <input class="m-0 p-0" value="5" name="status" type="radio">
+          </div>
+
+
+
+
+          <!-- <input type="radio" name="status" value="interesado" id="interesado"> <label for="interesado">Estoy
+              interesado</label>
+            <br>
+            <input type="radio" name="status" value="indeciso" id="indeciso"> <label for="indeciso">Estoy
+              indeciso</label>
+            <br>
+            <input type="radio" name="status" value="no_interesado" id="no_interesado"> <label for="no_interesado">No me
+              interesa</label> -->
+
+          <!-- </div> -->
+
+        </div>
+      </div>
+    </div>
+  </template>
+  <template name="24_template_panel_array">
+    <div style="display: none;">
+      <button class="add-mod">Boton</button>
+      <!-- <button class="max-app">Boton</button>
+      <button class="min-app">Boton</button>
+      <button class="titulo">Boton</button> -->
+    </div>
+    <div name="applicacion2" class="master border-0 border-black w-100 h-100 d-flex flex-column gap-1 p-0">
+      <div class="bar-general border-0 border-black  p-0 d-flex m-0 justify-content-between">
+        <div class="bar-section border-0 border-black  p-0 d-flex m-0 gap-3">
+          <h5 name="titulo" class="titulo border border-outset border-black rounded m-0 p-1 ps-2 pe-2">App</h5>
+          <div class="bar-botones border-bottom border-black  p-1 d-flex">
+            <i onclick="" class="material-icons m-0 text-black p-0 m-0 " style="">home</i>
+            <i onclick="" class="material-icons m-0 text-black p-0 m-0 " style="">folder</i>
+          </div>
+        </div>
+        <div class="bar-section border-bottom border-black  p-1 d-flex m-0 ms-3">
+          <!-- <i onclick="var panel_destino=document.getElementsByClassName('applicacion')[panel_seleccionado];old_style=panel_destino.getAttribute('style');panel_destino.setAttribute('style',max_style)"
+            class="material-icons m-0 text-black p-0 m-0  border border-black" style="">fullscreen</i> -->
+          <i class="max-app material-icons m-0 text-black p-0 m-0  border border-black">fullscreen</i>
+
+          <i onclick="var panel_destino=document.getElementsByClassName('applicacion')[panel_seleccionado];panel_destino.setAttribute('style',old_style)"
+            class="min-app material-icons m-0 text-black p-0 m-0  border border-black" style="">close_fullscreen</i>
+          <i onclick="this.offsetParent.outerHTML=''"
+            class=" material-icons m-0 text-black p-0 m-0  border border-black ms-3" style="">close</i>
+        </div>
+      </div>
+      <div class="div-panel caja-general border-0 border-black   flex-grow-1 p-0">
+        <div class="master border-0 border-black w-100 h-100 d-flex flex-row gap-1 p-0">
+          <div class="left border-0 border-black w-25  p-0">
+            <div class="master border-0 border-black h-100 d-flex flex-column gap-1 p-0">
+              <div class="bar border border-black  p-1 d-flex">
+                <i onclick="" class="material-icons m-0 text-black p-0 m-0 " style="">home</i>
+                <i onclick="" class="material-icons m-0 text-black p-0 m-0 " style="">folder</i>
+              </div>
+              <div class="caja border border-black d-flex flex-column flex-grow-1 p-0">
+                <select class="h-100" size="10" onclick="select_load(this,colores,1,event)">
+
+                </select>
+                <select class="h-100" size="10"
+                  onclick="select_load(this,Array.from(document.getElementsByTagName('*')),2,this)">
+
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="right border-0 border-black w-75 p-0">
+            <div class="master border-0 border-black h-100 d-flex flex-column gap-1 p-0">
+              <div class="bar border border-black  p-1 d-flex">
+                <i onclick="" class="material-icons m-0 text-black p-0 m-0 " style="">home</i>
+                <i onclick="" class="material-icons m-0 text-black p-0 m-0 " style="">folder</i>
+              </div>
+              <div class="caja border border-black  flex-grow-1 p-0">right</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="zoom: 0.6;" onclick="coge_input(this.parentElement,'caja-general')"
+        class="div-foot bg-gradient  d-flex gap-2 p-2">
+        <div class="bg-warning text-warning m-0 p-1"> <input class="m-0 p-0" value="1" name="status" type="radio"></div>
+        <div class="bg-danger text-danger m-0 p-1"> <input class="m-0 p-0" value="2" name="status" type="radio"></div>
+        <div class="bg-success text-warning m-0 p-1"> <input class="m-0 p-0" value="3" name="status" type="radio"></div>
+        <div class="bg-primary text-warning m-0 p-1"> <input class="m-0 p-0" value="4" name="status" type="radio"></div>
+        <div class="bg-secondary text-warning m-0 p-1"> <input class="m-0 p-0" value="5" name="status" type="radio">
+        </div>
+      </div>
+      <script> alert(666)</script>
+    </div>
+    <script>
+      alert(666)
+    </script>
+  </template>
+  <template name="25_app_black">
+    <div style="display: none;">
+      <!-- <button class="add-mod">Boton</button> -->
+      <!-- <button class="max-app">Boton</button>
+      <button class="min-app">Boton</button> -->
+      <!-- <button class="titulo">Boton</button> -->
+    </div>
+    <div name="applicacion2"
+      class="applicacion  master border  border-outset border-4 bg-black  d-flex flex-column m-0 pb-1 pe-1 pt-1 gap-1 p-1 "
+      style="z-index: 0;">
+      <div
+        class="bar-general rounded border-0 border-black  p-1 d-flex m-0 justify-content-between bg-warning bg-gradient">
+        <div class="bar-section border-0 border-black w-auto p-0 d-flex m-0 gap-3 overflow-hidden">
+          <h5 name="titulo"
+            class="titulo overflow-hidden w-50 border border-outset border-black rounded m-0 p-1 ps-2 pe-2">App</h5>
+          <div class="bar-botones border border-inset border-3 m-0 rounded-3 p-0 pt-0 fs-2 d-flex">
+            <span class="add-mod material-icons  p-0 m-0 fs-3 ">home</span>
+            <i onclick="" class="material-icons  p-0 m-0 fs-3 " style="">folder</i>
+          </div>
+        </div>
+        <div class="bar-section border-0 border-black  p-1 d-flex m-0 ms-0">
+          <i onclick="openFullscreen()"
+            class="material-icons ms-4 p-0 m-0  border border-black text-black pt-0">crop_square</i>
+          <i onclick="var panel_destino=document.getElementsByClassName('applicacion')[panel_seleccionado];old_style=panel_destino.getAttribute('style');panel_destino.setAttribute('style',max_style)"
+            class="max-app material-icons m-0 text-black p-0 m-0  border border-black" style="">fullscreen</i>
+          <i onclick="var panel_destino=document.getElementsByClassName('applicacion')[panel_seleccionado];panel_destino.setAttribute('style',old_style)"
+            class="min-app material-icons m-0 text-black p-0 m-0  border border-black" style="">close_fullscreen</i>
+          <i onclick="var panel_destino=document.getElementsByClassName('applicacion')[panel_seleccionado];panel_destino.outerHTML=''"
+            class="material-icons m-0 text-black p-0 m-0  border border-black ms-3" style="">close</i>
+        </div>
+      </div>
+      <div class="div-panel caja-general border-0 border-black bg-white   flex-grow-1 p-0 m-0"></div>
+      <div style="zoom:0.7" class="bot-general border bg-primary bg-gradient  m-0 p-0">
+        <div class="d-flex p-0 gap-1 m-0">
+          <div style="zoom:.9" class="border-0  p-0   border-inset d-flex gap-1 ms-1 m-1 pe-2 ps-2 rounded-3">
+            <button class="btn pe-2 btn-danger m-1 ms-0 border border-3  rounded-5"></button>
+            <button class="btn  btn-success m-1 ms-0  border  border-2"></button>
+            <button class="btn  btn-warning m-1  ms-0 border border-danger border-1"></button>
+            <button class="btn  btn-success m-1  ms-0 border border-white border-1"></button>
+            <i onclick="" class="ms-1 material-icons m-1 ms-0 text-warning border-0  " style="">radio_button_checked
+            </i>
+            <i onclick="" class="ms-1 material-icons m-1 ms-0 text-danger border-0  " style="">radio_button_checked </i>
+            <i onclick="" class="ms-1 material-icons m-1 ms-0 text-success border-0  " style="">radio_button_checked
+            </i>
+            <i onclick="" class="ms-1 material-icons m-1 ms-0 text-primary border-0  " style="">radio_button_checked
+            </i>
+          </div>
+          <div class="d-flex p-1">
+            <i onclick="Jugador.Crea_jugador('Document');carga_document()" class="ms-1 material-icons m-0  btn p-0 "
+              style="">apps</i>
+            <i onclick="Jugador.Crea_jugador('Window');carga_window()" class="ms-1 material-icons m-0 btn p-0  "
+              style="">app_registration </i>
+            <i onclick="Jugador.Crea_jugador('Aplicacion');carga_aplicacion()" class="ms-1 material-icons m-0   "
+              style="">radio_button_unchecked </i>
+            <i onclick="" class="ms-1 material-icons m-0   " style="">radio_button_checked </i>
+          </div>
+        </div>
+      </div>
+      <script></script>
+    </div>
+  </template>
+  <template name="26_app_black_new">
+    <div style="display: none;">
+      <!-- <button class="add-mod">Boton</button> -->
+      <!-- <button class="max-app">Boton</button>
+      <button class="min-app">Boton</button> -->
+      <!-- <button class="titulo">Boton</button> -->
+    </div>
+    <div name="applicacion2" class=" border-0  bg-black  d-flex flex-column m-0  gap-1 p-0 " style="z-index: 0;">
+      <div
+        class="bar-general rounded border-0 border-black  p-1 d-flex m-0 justify-content-between bg-warning bg-gradient">
+        <div class="bar-section border-0 border-black w-auto p-0 d-flex m-0 gap-3 overflow-hidden">
+          <h5 name="titulo"
+            class="titulo overflow-hidden w-50 border border-outset border-black rounded m-0 p-1 ps-2 pe-2">App</h5>
+          <div class="bar-botones border border-inset border-3 m-0 rounded-3 p-0 pt-0 fs-2 d-flex">
+            <!-- <span class="add-mod material-icons  p-0 m-0 fs-3 ">home</span>
+                  <i onclick="" class="material-icons  p-0 m-0 fs-3 " style="">folder</i> -->
+
+            <i onclick="location.reload();"
+              class=" border rounded-5  border-black border-2   ms-1 material-icons m-0 text-primary pt-0 me-3 ">refresh</i>
+            <button
+              class="add-mod btn btn-sm border ps-2 pe-2 text-white bg-primary bg-gradient rounded m-0 p-0">Add</button>
+          </div>
+        </div>
+        <div class="bar-section border-0 border-black  p-1 d-flex m-0 ms-0">
+          <i onclick="openFullscreen()"
+            class="material-icons ms-4 p-0 m-0  border border-black text-black pt-0">crop_square</i>
+          <i onclick="var panel_destino=document.getElementsByClassName('applicacion')[panel_seleccionado];old_style=panel_destino.getAttribute('style');panel_destino.setAttribute('style',max_style)"
+            class="max-app material-icons m-0 text-black p-0 m-0  border-0" style="">fullscreen</i>
+          <i onclick="var panel_destino=document.getElementsByClassName('applicacion')[panel_seleccionado];panel_destino.setAttribute('style',old_style)"
+            class="min-app material-icons m-0 text-black p-0 m-0  border-0" style="">close_fullscreen</i>
+          <i onclick="var panel_destino=document.getElementsByClassName('applicacion')[panel_seleccionado];panel_destino.outerHTML=''"
+            class="close-app material-icons m-0 text-black p-0 m-0  border-0 ms-3" style="">close</i>
+        </div>
+      </div>
+      <div class="div-panel caja-general border-0 border-black bg-white   flex-grow-1 p-0 m-0"></div>
+      <div style="zoom:0.7" class="bot-general border bg-primary bg-gradient  m-0 p-0">
+        <div class="d-flex p-0 gap-1 m-0 justify-content-between">
+          <div style="zoom: 0.8;" onclick="coge_input(this.parentElement.parentElement,'div-panel')"
+            class="div-foot bg-gradient  d-flex gap-2 p-2">
+            <div class="bg-warning text-warning m-0 p-1"> <input class="m-0 p-0" value="1" name="status" type="radio">
+            </div>
+            <div class="bg-danger text-danger m-0 p-1"> <input class="m-0 p-0" value="2" name="status" type="radio">
+            </div>
+            <div class="bg-success text-warning m-0 p-1"> <input class="m-0 p-0" value="3" name="status" type="radio">
+            </div>
+            <div class="bg-primary text-warning m-0 p-1"> <input class="m-0 p-0" value="4" name="status" type="radio">
+            </div>
+            <div class="bg-secondary text-warning m-0 p-1"> <input class="m-0 p-0" value="5" name="status" type="radio">
+            </div>
+            <!-- </div>
+
+                  <button class="btn pe-2 btn-danger m-1 ms-0 border border-3  rounded-5"></button>
+                  <button class="btn  btn-success m-1 ms-0  border  border-2"></button>
+                  <button class="btn  btn-warning m-1  ms-0 border border-danger border-1"></button>
+                  <button class="btn  btn-success m-1  ms-0 border border-white border-1"></button>
+                  <i onclick="" class="ms-1 material-icons m-1 ms-0 text-warning border-0  " style="">radio_button_checked </i>
+                  <i onclick="" class="ms-1 material-icons m-1 ms-0 text-danger border-0  " style="">radio_button_checked </i>
+                  <i onclick="" class="ms-1 material-icons m-1 ms-0 text-success border-0  " style="">radio_button_checked </i>
+                  <i onclick="" class="ms-1 material-icons m-1 ms-0 text-primary border-0  " style="">radio_button_checked </i>
+              </div>  -->
+
+          </div>
+          <div class="d-flex p-1">
+            <i onclick="Jugador.Crea_jugador('Document');carga_document()" class="ms-1 material-icons m-0  btn p-0 "
+              style="">apps</i>
+            <i onclick="Jugador.Crea_jugador('Window');carga_window()" class="ms-1 material-icons m-0 btn p-0  "
+              style="">app_registration </i>
+            <i onclick="Jugador.Crea_jugador('Aplicacion');carga_aplicacion()" class="ms-1 material-icons m-0   "
+              style="">radio_button_unchecked </i>
+            <i onclick="" class="ms-1 material-icons m-0   " style="">radio_button_checked </i>
+          </div>
+        </div>
+        <script></script>
+      </div>
+  </template>
+  <template id="template_27" name="tablero">
+    <div class="master h-100 d-flex flex-column border p-0 m-0 rounded-0 overflow-auto border-black">
+      <div class="barra d-flex  w-100 p-2 gap-2 m-0 justify-content-between">
+        <div style="align-items: center;" class="titulo text-white h-100 pt-1 border ms-2 ps-2 pe-2 border-outset p-1">
+          Tablero</div>
+        <div>
+          <button class="add-mod btn btn-sm border ps-2 pe-2 text-white bg-primary bg-gradient rounded m-0 p-0"
+            onclick="">Add</button>
+
+          <button class="max-app btn sm-btn btn-white border">+</button>
+          <button class="min-app btn sm-btn btn-white border">-</button>
+          <button class="close-app btn sm-btn btn-white border">X</button>
+
+
+        </div>
+      </div>
+      <div id="panel_central"
+        style="position: relative !important;min-height: 300px !important;min-width: 300px !important;"
+        class="div-panel  flex-grow-1   bg-gradient mt-0  m-1 rounded-2">
+      </div>
+      <div style="zoom: 0.6;" onclick="coge_input(this,'div-panel')" class="div-foot bg-gradient  d-flex gap-2 p-2">
+        <div class="bg-warning text-warning m-0 p-1"> <input class="m-0 p-0" value="1" name="status" type="radio"></div>
+        <div class="bg-danger text-danger m-0 p-1"> <input class="m-0 p-0" value="2" name="status" type="radio"></div>
+        <div class="bg-success text-warning m-0 p-1"> <input class="m-0 p-0" value="3" name="status" type="radio"></div>
+        <div class="bg-primary text-warning m-0 p-1"> <input class="m-0 p-0" value="4" name="status" type="radio"></div>
+        <div class="bg-secondary text-warning m-0 p-1"> <input class="m-0 p-0" value="5" name="status" type="radio">
+        </div>
+      </div>
+
+  </template>
+  <template id="template_28" name="jugadores">
+    <div class="master h-100 d-flex flex-column border p-0 m-0 rounded-0 overflow-auto border-black">
+      <div class="barra d-flex  w-100 p-2 gap-2 m-0 justify-content-between">
+        <div style="align-items: center;" class="titulo text-white h-100 pt-1 border ms-2 ps-2 pe-2 border-outset p-1">
+          Jugadores</div>
+        <div>
+          <button class="add-mod btn btn-sm border ps-2 pe-2 text-white bg-primary bg-gradient rounded m-0 p-0"
+            onclick="">Add</button>
+
+          <button class="max-app btn sm-btn btn-white border">+</button>
+          <button class="min-app btn sm-btn btn-white border">-</button>
+          <button class="close-app btn sm-btn btn-white border">X</button>
+
+
+        </div>
+      </div>
+      <div id="" style="position: relative !important;min-height: 300px !important;min-width: 300px !important;"
+        class="div-panel  flex-grow-1   bg-gradient mt-0  m-1 rounded-2">
+      </div>
+      <div style="zoom: 0.6;" onclick="coge_input(this,'div-panel')" class="div-foot bg-gradient  d-flex gap-2 p-2">
+        <div class="bg-warning text-warning m-0 p-1"> <input class="m-0 p-0" value="1" name="status" type="radio"></div>
+        <div class="bg-danger text-danger m-0 p-1"> <input class="m-0 p-0" value="2" name="status" type="radio"></div>
+        <div class="bg-success text-warning m-0 p-1"> <input class="m-0 p-0" value="3" name="status" type="radio"></div>
+        <div class="bg-primary text-warning m-0 p-1"> <input class="m-0 p-0" value="4" name="status" type="radio"></div>
+        <div class="bg-secondary text-warning m-0 p-1"> <input class="m-0 p-0" value="5" name="status" type="radio">
+        </div>
+      </div>
+
+  </template>
+  <template name="29_template_rexr_edit">
+    <div class="panel bg-black rounded-2 border-0 m-0 d-flex w-100 h-100  ">
+      <div class="panel-div  border m-0 d-flex pt-2 flex-grow-1 flex-column gap-0 overflow-y-auto ">
+        <div class="bar d-flex gap-1 ps-2 pe-2  pb-2 justify-content-between">
+          <div class="titulo h3 rounded-3 ps-3 pe-3 p-1 bg-danger m-0">App</div>
+          <i class="add-mod material-icons m-0 text-success pt-1 ">settings</i>
+          <div class="mt-1">
+            <i name="" class="max-app material-icons m-0 text-white " >add</i>
+            <i name="" class="min-app material-icons m-0 text-white " >remove</i>
+          </div>
+        </div>
+        <div style="position: relative !important;" class="div-panel  flex-grow-1 bg-white p-2  bg-gradient mt-0  m-1 rounded-2">
+          <iframe class="w-100 h-100" src="./files/save2.html"></iframe>
+        </div>
+        <div style="zoom: 0.6;" onclick="coge_input(this,'div-panel')" class="div-foot bg-gradient  d-flex gap-2 p-2">
+          <div class="bg-warning text-warning m-0 p-1"> <input class="m-0 p-0" value="1" name="status" type="radio"> </div>
+          <div class="bg-danger text-danger m-0 p-1"> <input class="m-0 p-0" value="2" name="status" type="radio"></div>
+          <div class="bg-success text-warning m-0 p-1"> <input class="m-0 p-0" value="3" name="status" type="radio"> </div>
+          <div class="bg-primary text-warning m-0 p-1"> <input class="m-0 p-0" value="4" name="status" type="radio"> </div>
+          <div class="bg-secondary text-warning m-0 p-1"> <input class="m-0 p-0" value="5" name="status" type="radio"></div>
+        </div>
+      </div>
+    </div>
+  </template>
+  <template name="30">
+    <style type="text/css">
+      .gwd-table-sa10 {
+        -webkit-transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+        -webkit-transform-style: preserve-3d;
+      }
+
+      .gwd-tr-6veh {
+        -webkit-transform: translate3d(-0.1px, 11.03px, -0.56px);
+        -webkit-transform-style: preserve-3d;
+      }
+    </style>
+    <div style="display: none;">
+      <button class="add-mod">Boton</button>
+
+      <button class="close-app">Boton</button>
+      <button class="max-app">Boton</button>
+      <button class="min-app">Boton</button>
+      <button class="titulo">Boton</button>
+    </div>
+    <table class="gwd-table-sa10">
+      <tbody>
+        <tr>
+          <td>Text to SAVE:</td>
+        </tr>
+        <tr>
+          <td colspan="3">
+            <textarea id="inputTextToSave" style="width:512px;height:256px"></textarea>
+          </td>
+        </tr>
+        <tr>
+          <td>Filename to Save As:</td>
+          <td>
+            <input id="inputFileNameToSaveAs">
+          </td>
+          <td>
+            <button onclick="saveTextAsFile()">Save Text to File</button>
+          </td>
+        </tr>
+        <tr class="gwd-tr-6veh">
+          <td>Select a File to Load:</td>
+          <td>
+            <input type="file" id="fileToLoad" />
+          </td>
+          <td>
+            <button onclick="loadFileAsText()">Load Selected File</button>
+          </td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </template>
+  <template name="31">
+    <div style="display: none;">
+      <button class="add-mod">Boton</button>
+
+      <button class="close-app">Boton</button>
+      <button class="max-app">Boton</button>
+      <button class="min-app">Boton</button>
+      <button class="titulo">Boton</button>
+    </div>
+    <div class="h-100 d-flex flex-column m-0 p-0 gap-2">
+      <div class=" d-flex flex-column m-0 p-2">
+        <div>
+          Text to SAVE:
+        </div>
+        <div>
+          <textarea id="inputTextToSave" style="width:100%;/*height:256px*/"></textarea>
+
+        </div>
+
+      </div>
+      <div class=" d-flex m-0  gap-2 p-2">
+        <div class="m-0 p-0 w-auto">
+          <div class="m-0 p-0 h-100">Filename to Save As:</div>
+        </div>
+
+        <div class="m-0 p-0 flex-grow-1">
+          <input style="    /* line-height: inherit; */
+            /* font-size: unset; */
+            font-family: unset;
+        " id="inputFileNameToSaveAs">
+        </div>
+        <div class="m-0 p-0 w-auto">
+          <button onclick="saveTextAsFile()">Save Text to File</button>
+        </div>
+
+      </div>
+      <div class=" d-flex m-0  gap-2 p-2">
+        <div class="w-auto m-0 p-0">
+          Select a File to Load:
+        </div>
+        <div class="flex-grow-1 m-0 p-0">
+          <input class="w-100 border m-0 p-0" type="file" id="fileToLoad">
+        </div>
+        <div class="h-auto m-0 p-0">
+          <button onclick="loadFileAsText()">Load Selected File</button>
+        </div>
+      </div>
+    </div>
+  </template>
 </head>
-<body>
- <div>
-    <a href="./files/template.html">Template</a>
-    <a href="./files/template_css.html">TemplateCSS</a>
 
- </div>
-</body>
+<body></body>
+
 </html>

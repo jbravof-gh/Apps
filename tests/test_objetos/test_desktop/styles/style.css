@@ -1,0 +1,87 @@
+body{
+    width:100%;
+    height:100vh;
+    border:outset 10px;
+    border-top:outset 50px;
+        border-radius:20px !important;
+overflow:hidden;
+}
+body .desktop{
+    border:outset 3px;
+    padding: 0px;
+    position:absolute;
+    top: 3px;
+        border-radius:10px !important;
+    width:100%;
+    height:100%;
+
+}
+ .desktop .contenedor{
+         background-color:#a2a5a7cf;
+
+    border:solid;
+    padding: 13px;
+    /* margin:20px; */
+    position:absolute;
+    display: flex;
+    flex-direction: column;
+    /* overflow: auto; */
+     top:50px;
+}
+ .desktop .contenedor .aplicacion {padding: 2px;margin: 10px;display: flex;flex-direction: column;overflow: auto;width: -webkit-fill-available;border: solid; height: -webkit-fill-available;
+                                      background-color:#d1899f47;
+
+                                  }
+.aplicacion .app-modules{
+    overflow:auto;
+    height: -webkit-fill-available;
+    min-width: auto;
+    display: flex;
+    flex-direction: column;
+    margin: 5px;
+}
+.aplicacion .contenedor{
+        background-color:#3d424652;
+
+    position:relative !important;
+    overflow:auto;
+    margin: 5px;
+    padding: 3px;
+    display: flex !important;
+    flex-direction: column !important;
+         top:0px;
+
+}
+  .aplicacion .modulo{
+          background-color:#9a7dd647;
+          display: flex !important;
+          flex-direction: column !important;!i;!;
+          border:solid;
+          margin: 2px !important;
+          overflow: auto;
+          /* position:absolute; */
+          height: 100%;
+}
+.app-bar{
+    padding:5px;
+    border: solid;
+    border-radius:10px !important;
+    background-color:#a2a5a747;
+    display: flex;
+    justify-content: space-between;
+}
+button{
+    background-color:white;
+    border-radius:10px !important;
+        padding-right:8px;
+            padding-left:8px;
+    width:fit-content;
+    
+
+
+}
+.div-panel{
+    min-height:100px;
+}
+ 
+

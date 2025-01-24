@@ -13,7 +13,7 @@ body{
 
 }
 .contenedor{
-    border: solid;
+    border: solid !important;
     margin: 5px;
     padding: 10px;
 }
@@ -25,6 +25,9 @@ body{
     /* margin: 15px; */
     /* margin-bottom: -30px; */
  
+}
+.contenedor div{
+    /* height: -webkit-fill-available;  */
 }
 header{
     border: solid 0.5px;
@@ -39,9 +42,11 @@ footer{
 
 }
 main{
+    display: flex;
+    /* position: relative; */
     border: solid 0.5px !important;
     padding: 5px;
-    /* height: -webkit-fill-available; */
+    height: -webkit-fill-available;
 }
 nav{
     border: solid 0.5px !important;
@@ -55,7 +60,10 @@ aside{
 }
 
 
+#contenedor_0 .panel{
+    padding: 5px;
 
+}
 
 
 

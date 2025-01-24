@@ -1,12 +1,97 @@
-body{
-    border:black outset 12px;
-    width: 100vw;
-    height: 100vh;
-    padding: 10px;
+body {
+    border: black outset 12px;
+    width: 100%;
+    min-height: 100vh;
+    /* padding: 10px; */
     /* background-color: black !important; */
-    overflow: hidden;
+    /* overflow: hidden; */
 
 }
-.contenedor{
-    /* position: absolute !important; */
+
+.contenedor {
+    position: relative !important;
+    border: solid !important;
+    display: flex;
+    flex-direction: column;
+    /* overflow: auto; */
+    background-color: white;
+    padding: 8px;
+    /* max-width: -webkit-fill-available !important; */
+    /* width: -webkit-fill-available !important; */
+    /* margin-right: 10px; */
+    max-width: 100% !important;
+    /* min-height: auto !important; */
+    border-radius: 8px;
+    max-height: 100% !important;
+
+
+
+}
+
+.aplicacion {
+    /* padding: 3px; */
+
+    display: flex;
+    flex-direction: column;
+    border: solid;
+    height: -webkit-fill-available;
+    /* border-color: red !important; */
+}
+
+
+.modulo {
+    margin: -5px;
+    /* padding: 5px; */
+
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    border: solid;
+    height: -webkit-fill-available;
+    /* border-color: blue !important; */
+}
+
+.div-panel {
+    overflow: auto;
+    border: solid black 0.5px !important;
+    display: flex;
+    /* padding: 2%; */
+    align-content: flex-start;
+    flex-wrap: wrap;
+    flex-direction: column;
+
+}
+
+.visible-no {
+    /* display: none !important; */
+    max-height: 2px !important;
+    /* position: absolute; */
+}
+
+.caja {
+    max-height: -webkit-fill-available;
+    /* position: relative !important; */
+    min-height: 300px;
+
+}
+.div-foot div{
+    height: 30px !important;
+    width: 30px !important;
+    border-radius: 50%;
+    padding-left: 9px ! important;
+    padding-top: 5px ! important;
+
+}
+.div-panel>.contenedor{
+    margin: 5px;
+}
+.modulo>.div-panel{
+    width: 100% !important;
+}
+.titulo{
+    border-radius:10px ;
+    padding: 5px !important;
+    padding-left: 10px  !important;
+    padding-right: 10px  !important;
+
 }

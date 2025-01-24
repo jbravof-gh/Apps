@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="CONTENT-TYPE" content="text/html; charset=UTF-8">
+        <title>Hello, World!</title>
+        <!-- Local
+        <link rel="stylesheet" href="styles/style.css"/>
+        BootStrap
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+        JQuery
+        <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+        <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.0/themes/base/jquery-ui.css">
+        Google Icons
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <template name="0-Applicacion"> -->
+            <div class="template">
+                <h1>Applicacion</h1>
+                1
+            
+            
+            
+            
+            
+            
+            
+            </div>
+        </template>
+        <template name="1-Input-Class">
+            <div class="border">
+                <input class="input-class">
+                <button onclick="Applicacion.update_class_value()">Change</button>
+            </div>
+        </template>
+        <template name="2-jugador">
+            <div>
+                <h2 class=" border-bottom"></h2>
+                <button name="" onclick="alert(Jugador.Show_jugador(this.name))">get name</button>
+                <div class="border">*</div>
+            </div>
+        </template>
+        <template>
+            <div></div>
+        </template>
+        <style>
+            .panel {
+                position: absolute;
+                width: 400px;
+                min-height: 50px !important;
+                min-width: 180px !important;
+                background-color: black;
+                padding: 2px;
+            }
+
+            .panel .panel-div {
+                min-height: 50px !important;
+                min-width: 140px !important;
+                background-color: white;
+            }
+
+            .panel .bar {
+                padding: 5px;
+            }
+
+            .panel .caja {
+                background-color: blue;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="panel rounded-2 border-0 m-0 d-flex ">
+            <div class="panel-div border-0 m-0 d-flex  flex-grow-1 flex-column gap-0 overflow-auto">
+                <div class="bar d-flex gap-1 ps-2 pe-2 justify-content-between">
+                    <div class="h3 rounded-3 ps-3 pe-3 p-1 bg-danger">App</div>
+                    <div>
+                        <button class=" bg-warning bt-max btn btn-sm border">Max</button>
+                        <button class="bt-min btn btn-warning btn-sm border">Min</button>
+                    </div>
+                </div>
+                <div class="caja h-75 flex-grow-1 m-2 mt-0 p-2 overflow-auto bg-primary bg-gradient">caja
+                </div>
+            </div>
+        </div>
+        <div class="panel border m-0 d-flex">
+            <div class="panel-div border-0 m-0 d-flex bg-black  flex-grow-1 flex-column gap-0 overflow-auto">
+                <div class="bar d-flex gap-1 ps-2 pe-2 justify-content-between">
+                    <div muestra="si" class="h3 rounded-3 ps-3 pe-3 p-1 bg-danger">Config</div>
+                    <div class="mt-1">
+                        <i class="bt-max material-icons m-0 text-success " style="">add_circle_outline</i>
+                        <i class="bt-min material-icons m-0 text-danger " style="">remove_circle_outline</i>
+                    </div>
+                </div>
+                <div class="caja h-75 flex-grow-1 m-2 mt-0 p-2 overflow-auto bg-warning bg-gradient">caja
+                </div>
+            </div>
+        </div>
+        <div class="panel  rounded-2 border-0 m-0 d-flex ">
+            <div class="panel-div border-0 m-0 d-flex  flex-grow-1 flex-column gap-0 overflow-auto ">
+                <div class="bar d-flex gap-1 ps-2 pe-2 justify-content-between">
+                    <div class="h3 rounded-3 ps-3 pe-3 p-1 bg-danger">App</div>
+                    <div class="mt-1">
+                        <i class="bt-max material-icons m-0 text-success " style="">add_circle_outline</i>
+                        <i class="bt-min material-icons m-0 text-danger " style="">remove_circle_outline</i>
+                    </div>
+                </div>
+                <div class="caja h-75 flex-grow-1 m-2 mt-1 p-2 overflow-auto bg-success bg-gradient">caja
+                </div>
+            </div>
+        </div>
+        <script>
+            var panel_seleccionado = ""
+            var pan_sel = {
+                order: 0,
+                old_style: ""
+            };
+            jQuery(".panel").mouseenter(get_div)
+            jQuery(".bt-max").click(maxim)
+            jQuery(".bt-min").click(minim)
+            jQuery(".h3").click(h3_click)
+
+            function get_div() {
+                console.log(this.className);
+                // logs the className of my_element
+                console.log(this.innerHTML);
+                pan_sel.order = Array.from(document.getElementsByClassName("panel")).indexOf(this)
+                panel_seleccionado = Array.from(document.getElementsByClassName("panel")).indexOf(this)
+                //  Array.from(document.getElementsByClassName("panel"))[panel_seleccionado].style.zIndex = "100"
+                return Array.from(document.getElementsByClassName("panel")).indexOf(this)
+                // logs `true`
+
+            }
+            function maxim() {
+                //  pan_sel.order = panel_seleccionado;
+                pan_sel.old_style = Array.from(document.getElementsByClassName("panel"))[panel_seleccionado].getAttribute("style")
+                //  alert (Array.from(document.getElementsByClassName("panel"))[panel_seleccionado].getAttribute("style"))
+                Array.from(document.getElementsByClassName("panel"))[panel_seleccionado].setAttribute("style", "z-index:200;top:0;left:0;width:100%;height:100%;")
+            }
+            function minim() {
+                // alert( pan_sel.old_style)
+                Array.from(document.getElementsByClassName("panel"))[panel_seleccionado].setAttribute("style", pan_sel.old_style)
+            }
+            function h3_click() {
+                alert(this.getAttribute("muestra") + "- " + panel_seleccionado)
+                alert(document.getElementsByClassName("panel")[panel_seleccionado].getAttribute("style"))
+                //  document.getElementsByClassName("panel")[panel_seleccionado].style.minheight="50px !important"
+                //    document.getElementsByClassName("panel")[panel_seleccionado].getElementsByClassName("caja")[0].setAttribute("style", "display:none !important")
+                //  document.getElementsByClassName("panel")[panel_seleccionado].setAttribute("style", "height:50px !important")
+
+                if (this.getAttribute("muestra") == "si") {
+                    pan_sel.old_style = document.getElementsByClassName("panel")[panel_seleccionado].getAttribute("style")
+                    document.getElementsByClassName("panel")[panel_seleccionado].setAttribute("style", "height:50px !important")
+
+                } else {
+                    document.getElementsByClassName("panel")[panel_seleccionado].setAttribute("style", pan_sel.old_style)
+
+                }
+            }
+            jQuery(".panel").resizable();
+            jQuery(".panel").draggable();
+        </script>
+    </body>
+</html>
